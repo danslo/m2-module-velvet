@@ -1,0 +1,3 @@
+type Mutation {
+    generateAdminToken(username: String!,password: String!): String! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\GenerateAdminToken")
+}
