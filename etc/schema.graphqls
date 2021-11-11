@@ -1,3 +1,31 @@
 type Mutation {
     generateAdminToken(username: String!,password: String!): String! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\GenerateAdminToken")
 }
+
+type DashboardSales {
+    lifetime_sales: String!
+    average_order: String!
+}
+
+type DashboardLastOrder {
+    customer_name: String!
+    num_items: Int!,
+    total: String!
+}
+
+type DashboardSearchTerm {
+    search_term: String!
+    results: Int!
+    uses: Int!
+}
+
+type Dashboard {
+    sales: DashboardSales!
+    last_orders: [DashboardLastOrder!]!
+    last_search_terms: [DashboardSearchTerm!]!
+    top_search_terms: [DashboardSearchTerm!]!
+}
+
+type Query {
+    dashboard: Dashboard! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Dashboard")
+}
