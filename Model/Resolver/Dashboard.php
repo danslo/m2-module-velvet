@@ -2,31 +2,93 @@
 
 namespace Danslo\Velvet\Model\Resolver;
 
+use Magento\Directory\Model\Currency;
 use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
+use Magento\Reports\Model\ResourceModel\Order\CollectionFactory as OrderCollectionFactory;
+use Magento\Search\Model\ResourceModel\Query\CollectionFactory as SearchCollectionFactory;
 
 class Dashboard implements ResolverInterface
 {
+    private OrderCollectionFactory $orderCollectionFactory;
+    private Currency $currency;
+    private SearchCollectionFactory $searchCollectionFactory;
+
+    public function __construct(
+        OrderCollectionFactory $orderCollectionFactory,
+        Currency $currency,
+        SearchCollectionFactory $searchCollectionFactory
+    ) {
+        $this->orderCollectionFactory = $orderCollectionFactory;
+        $this->currency = $currency;
+        $this->searchCollectionFactory = $searchCollectionFactory;
+    }
+
+    private function getSearchTerms(bool $popularFilter, bool $recentFilter): array
+    {
+        $searchCollection = $this->searchCollectionFactory->create()->setPageSize(5);
+
+        if ($popularFilter) {
+            $searchCollection->setPopularQueryFilter();
+        }
+
+        if ($recentFilter) {
+            $searchCollection->setRecentQueryFilter();
+        }
+
+        $searchTerms = [];
+        foreach ($searchCollection as $searchTerm) {
+            $searchTerms[] = [
+                'search_term' => $searchTerm->getQueryText(),
+                'results' => $searchTerm->getNumResults(),
+                'uses' => $searchTerm->getPopularity()
+            ];
+        }
+        return $searchTerms;
+    }
+
+    private function getLastOrders(): array
+    {
+        $lastOrdersCollection = $this->orderCollectionFactory->create()
+            ->addItemCountExpr()
+            ->joinCustomerName('customer')
+            ->orderByCreatedAt()
+            ->addRevenueToSelect(true)
+            ->setPageSize(5);
+
+        $lastOrders = [];
+        foreach ($lastOrdersCollection as $item) {
+            $item->getCustomer() ?: $item->setCustomer($item->getBillingAddress()->getName());
+
+            $lastOrders[] = [
+                'customer_name' => $item->getCustomer(),
+                'num_items' => $item->getItemsCount(),
+                'total' => $this->currency->format($item->getRevenue(), [], false)
+            ];
+        }
+        return $lastOrders;
+    }
+
+    private function getSales(): array
+    {
+        $sales = $this->orderCollectionFactory->create()
+            ->calculateSales()
+            ->getFirstItem();
+
+        return [
+            'lifetime_sales' => $this->currency->format($sales->getLifetime(), [], false),
+            'average_order' => $this->currency->format($sales->getAverage(), [], false)
+        ];
+    }
+
     public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
     {
         return [
-            'sales' => [
-                'lifetime_sales' => '$29.00',
-                'average_order' => '$14.50'
-            ],
-            'last_orders' => [
-                ['customer_name' => 'Foo Bar', 'num_items' => 5, 'total' => '$56.99']
-            ],
-            'last_search_terms' => [
-                ['search_term' => 'cool', 'results' => 10, 'uses' => 5],
-                ['search_term' => 'bad', 'results' => 20, 'uses' => 2],
-                ['search_term' => 'fun', 'results' => 30, 'uses' => 1],
-            ],
-            'top_search_terms' => [
-                ['search_term' => 'abc', 'results' => 5, 'uses' => 3],
-                ['search_term' => 'def', 'results' => 10, 'uses' => 1]
-            ]
+            'sales' => $this->getSales(),
+            'last_orders' => $this->getLastOrders(),
+            'last_search_terms' => $this->getSearchTerms(false, true),
+            'top_search_terms' => $this->getSearchTerms(true, false)
         ];
     }
 }
