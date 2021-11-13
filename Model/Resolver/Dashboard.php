@@ -2,8 +2,10 @@
 
 namespace Danslo\Velvet\Model\Resolver;
 
+use Magento\Authorization\Model\UserContextInterface;
 use Magento\Directory\Model\Currency;
 use Magento\Framework\GraphQl\Config\Element\Field;
+use Magento\Framework\GraphQl\Exception\GraphQlAuthorizationException;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 use Magento\Reports\Model\ResourceModel\Order\CollectionFactory as OrderCollectionFactory;
@@ -84,6 +86,9 @@ class Dashboard implements ResolverInterface
 
     public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
     {
+        if ($context->getUserType() !== UserContextInterface::USER_TYPE_ADMIN) {
+            throw new GraphQlAuthorizationException(__('Admin authorization required.'));
+        }
         return [
             'sales' => $this->getSales(),
             'last_orders' => $this->getLastOrders(),
