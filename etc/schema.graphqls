@@ -30,11 +30,10 @@ type DashboardChart {
 }
 
 type Dashboard {
-    sales: DashboardSales!
-    last_orders: [DashboardLastOrder!]!
-    last_search_terms: [DashboardSearchTerm!]!
-    top_search_terms: [DashboardSearchTerm!]!
-
+    sales: DashboardSales! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Dashboard\\Sales")
+    last_orders: [DashboardLastOrder!]! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Dashboard\\LastOrders")
+    last_search_terms: [DashboardSearchTerm!]! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Dashboard\\SearchTerms\\Last")
+    top_search_terms: [DashboardSearchTerm!]! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Dashboard\\SearchTerms\\Top")
     orders_chart: DashboardChart! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Dashboard\\Chart\\Orders")
     revenue_chart: DashboardChart! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Dashboard\\Chart\\Revenue")
 }

@@ -12,4 +12,16 @@
             <argument name="label" xsi:type="string">Revenue</argument>
         </arguments>
     </virtualType>
+
+    <virtualType name="Danslo\Velvet\Model\Resolver\Dashboard\SearchTerms\Last" type="Danslo\Velvet\Model\Resolver\Dashboard\SearchTerms">
+        <arguments>
+            <argument name="recentFilter" xsi:type="boolean">true</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="Danslo\Velvet\Model\Resolver\Dashboard\SearchTerms\Top" type="Danslo\Velvet\Model\Resolver\Dashboard\SearchTerms">
+        <arguments>
+            <argument name="popularFilter" xsi:type="boolean">true</argument>
+        </arguments>
+    </virtualType>
 </config>
