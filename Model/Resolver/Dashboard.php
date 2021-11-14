@@ -17,5 +17,6 @@ class Dashboard implements ResolverInterface
         if ($context->getUserType() !== UserContextInterface::USER_TYPE_ADMIN) {
             throw new GraphQlAuthorizationException(__('Admin authorization required.'));
         }
+        return [];
     }
 }

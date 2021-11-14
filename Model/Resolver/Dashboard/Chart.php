@@ -24,11 +24,11 @@ class Chart implements ResolverInterface
 
     public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
     {
-        $period = '7d'; // TODO: grab from parent
-
+        $period = $args['period'] ?? '7d';
         return [
-            'label' => $this->label,
-            'points' => $this->dashboardChart->getByPeriod($period, $this->chartParam)
+            'label'  => $this->label,
+            'points' => $this->dashboardChart->getByPeriod($period, $this->chartParam),
+            'period' => $period
         ];
     }
 }

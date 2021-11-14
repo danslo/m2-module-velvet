@@ -27,6 +27,7 @@ type DashboardChartPoint {
 type DashboardChart {
     label: String!
     points: [DashboardChartPoint!]!
+    period: String!
 }
 
 type Dashboard {
@@ -34,8 +35,8 @@ type Dashboard {
     last_orders: [DashboardLastOrder!]! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Dashboard\\LastOrders")
     last_search_terms: [DashboardSearchTerm!]! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Dashboard\\SearchTerms\\Last")
     top_search_terms: [DashboardSearchTerm!]! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Dashboard\\SearchTerms\\Top")
-    orders_chart: DashboardChart! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Dashboard\\Chart\\Orders")
-    revenue_chart: DashboardChart! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Dashboard\\Chart\\Revenue")
+    orders_chart(period: String): DashboardChart! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Dashboard\\Chart\\Orders")
+    revenue_chart(period: String): DashboardChart! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Dashboard\\Chart\\Revenue")
 }
 
 type Query {
