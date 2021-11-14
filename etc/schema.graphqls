@@ -30,6 +30,13 @@ type DashboardChart {
     period: String!
 }
 
+type DashboardTotals {
+    revenue: String!
+    tax: String!
+    shipping: String!
+    quantity: Int!
+}
+
 type Dashboard {
     sales: DashboardSales! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Dashboard\\Sales")
     last_orders: [DashboardLastOrder!]! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Dashboard\\LastOrders")
@@ -37,6 +44,7 @@ type Dashboard {
     top_search_terms: [DashboardSearchTerm!]! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Dashboard\\SearchTerms\\Top")
     orders_chart(period: String): DashboardChart! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Dashboard\\Chart\\Orders")
     revenue_chart(period: String): DashboardChart! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Dashboard\\Chart\\Revenue")
+    totals(period: String): DashboardTotals! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Dashboard\\Totals")
 }
 
 type Query {
