@@ -62,7 +62,7 @@ type ConfigurationSection {
 }
 
 type ConfigurationTab {
-    title: String!
+    label: String!
     sections: [ConfigurationSection!]!
 }
 
