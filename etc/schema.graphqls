@@ -56,6 +56,17 @@ type Dashboard {
     customers_most: [DashboardCustomer!]! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Dashboard\\CustomersMost")
 }
 
+type ConfigurationSection {
+    path: String!
+    label: String!
+}
+
+type ConfigurationTab {
+    title: String!
+    sections: [ConfigurationSection!]!
+}
+
 type Query {
     dashboard: Dashboard! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Dashboard")
+    configurationTabs: [ConfigurationTab!]! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Configuration\\Tabs")
 }
