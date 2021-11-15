@@ -66,7 +66,19 @@ type ConfigurationTab {
     sections: [ConfigurationSection!]!
 }
 
+type ConfigurationField {
+    label: String!
+    type: String!
+    comment: String
+}
+
+type ConfigurationGroup {
+    label: String!
+    fields: [ConfigurationField!]!
+}
+
 type Query {
     dashboard: Dashboard! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Dashboard")
     configurationTabs: [ConfigurationTab!]! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Configuration\\Tabs")
+    configurationSection(section: String!): [ConfigurationGroup!]! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Configuration\\Section")
 }
