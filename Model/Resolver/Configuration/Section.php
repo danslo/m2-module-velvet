@@ -35,6 +35,10 @@ class Section implements ResolverInterface
         foreach ($section->getChildren() as $group) {
             $fields = [];
             foreach ($group->getChildren() as $field) {
+                if (!($field instanceof \Magento\Config\Model\Config\Structure\Element\Field)) {
+                    // TODO: Some modules place groups inside groups, handle this edge case.
+                    continue;
+                }
                 $fields[] = [
                     'label' => (string) $field->getLabel(),
                     'type' => $field->getType(),
