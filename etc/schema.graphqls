@@ -66,10 +66,17 @@ type ConfigurationTab {
     sections: [ConfigurationSection!]!
 }
 
+type ConfigurationOption {
+    label: String!
+    value: String
+}
+
 type ConfigurationField {
     label: String!
     type: String!
     comment: String
+    options: [ConfigurationOption!]
+    value: String
 }
 
 type ConfigurationGroup {
