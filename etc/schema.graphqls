@@ -77,6 +77,8 @@ type ConfigurationField {
     comment: String
     options: [ConfigurationOption!]
     value: String
+    inherit: Boolean!
+    show_inherit: Boolean!
 }
 
 type ConfigurationGroup {

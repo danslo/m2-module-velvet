@@ -6,9 +6,15 @@ namespace Danslo\Velvet\Model\Resolver\Configuration;
 
 use Danslo\Velvet\Model\Authorization;
 use Danslo\Velvet\Model\Configuration;
-use Magento\Config\Block\System\Config\FormFactory;
+use Magento\Config\App\Config\Type\System;
+use Magento\Config\Block\System\Config\Form;
+use Magento\Config\Model\Config\Factory as ConfigFactory;
+use Magento\Config\Model\Config\Reader\Source\Deployed\SettingChecker;
 use Magento\Config\Model\Config\Structure\Element\Group;
-use Magento\Framework\Data\Form\Element\Fieldset;
+use Magento\Framework\App\Config\Data\ProcessorInterface;
+use Magento\Framework\App\Config\ScopeConfigInterface;
+use Magento\Framework\App\DeploymentConfig;
+use Magento\Framework\DataObject;
 use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
@@ -17,24 +23,78 @@ class Section implements ResolverInterface
 {
     private Configuration $configuration;
     private Authorization $authorization;
-    private FormFactory $formFactory;
-    private \Magento\Framework\Data\Form\Element\FieldsetFactory $fieldsetFactory;
+    private ConfigFactory $configFactory;
+    private ScopeConfigInterface $scopeConfig;
+    private SettingChecker $settingChecker;
+    private DeploymentConfig $deploymentConfig;
 
     public function __construct(
         Configuration $configuration,
         Authorization $authorization,
-        FormFactory $formFactory,
-        \Magento\Framework\Data\Form\Element\FieldsetFactory $fieldsetFactory
+        ConfigFactory $configFactory,
+        ScopeConfigInterface $scopeConfig,
+        SettingChecker $settingChecker,
+        DeploymentConfig $deploymentConfig
     ) {
         $this->configuration = $configuration;
         $this->authorization = $authorization;
-        $this->formFactory = $formFactory;
-        $this->fieldsetFactory = $fieldsetFactory;
+        $this->configFactory = $configFactory;
+        $this->scopeConfig = $scopeConfig;
+        $this->settingChecker = $settingChecker;
+        $this->deploymentConfig = $deploymentConfig;
     }
 
-    private function generateElementId(string $path)
+    private function getScope()
     {
-        return str_replace('/', '_', $path);
+        // todo
+        return Form::SCOPE_DEFAULT;
+    }
+
+    public function canUseDefaultValue($fieldValue)
+    {
+        if ($this->getScope() == Form::SCOPE_STORES && $fieldValue) {
+            return true;
+        }
+        if ($this->getScope() == Form::SCOPE_WEBSITES && $fieldValue) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Check if can use website value
+     *
+     * @param int $fieldValue
+     * @return boolean
+     */
+    public function canUseWebsiteValue($fieldValue)
+    {
+        if ($this->getScope() == Form::SCOPE_STORES && $fieldValue) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Check if can use restore value
+     *
+     * @param int $fieldValue
+     * @return bool
+     * @since 100.1.0
+     */
+    public function isCanRestoreToDefault($fieldValue)
+    {
+        if ($this->getScope() == Form::SCOPE_DEFAULT && $fieldValue) {
+            return true;
+        }
+        return false;
+    }
+
+    private function isInheritCheckboxRequired(\Magento\Config\Model\Config\Structure\Element\Field $field)
+    {
+        return $this->canUseDefaultValue($field->showInDefault()) ||
+            $this->canUseWebsiteValue($field->showInWebsite()) ||
+            $this->isCanRestoreToDefault($field->canRestore());
     }
 
     public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
@@ -43,55 +103,48 @@ class Section implements ResolverInterface
 
         /** @var \Magento\Config\Model\Config\Structure\Element\Section $section */
         $section = $this->configuration->getAdminhtmlConfigStructure()->getElement($args['section']);
-
         if ($section->hasChildren() === false) {
             return [];
         }
 
-        $groups = [];
+        $configDataObject = $this->configFactory->create(
+            [
+                'data' => [
+                    'section' => $section->getId(),
+                    //'website' => $this->getWebsiteCode(),
+                    //'store' => $this->getStoreCode(),
+                ],
+            ]
+        );
 
+        $configData = $configDataObject->load();
+
+        $groups = [];
         /** @var Group $group */
         foreach ($section->getChildren() as $group) {
-            /** @var Fieldset $fieldset */
-            $fieldset = $this->fieldsetFactory->create();
-
-            $form = $this->formFactory->create();
-            try {
-                $form->initFields($fieldset, $group, $section);
-            } catch (\Exception $e) {
-                // todo: why sometimes?
-            }
-
             $fields = [];
             foreach ($group->getChildren() as $field) {
-
                 if (!($field instanceof \Magento\Config\Model\Config\Structure\Element\Field)) {
                     // TODO: Some modules place groups inside groups, handle this edge case.
                     continue;
                 }
 
 
-                $value = null;
-                $elementId = $this->generateElementId($field->getPath());
-                if ($elementId) {
-                    foreach ($fieldset->getElements() as $element) {
-                        if ($element->getId() === $elementId) {
-                            if (!is_string($element->getValue())) {
-                                // TODO: sometimes json?
-                                continue;
-                            }
-                            $value = $element->getValue();
-                            break;
-                        }
-                    }
+                $path = $field->getPath();
+                $data = $this->getFieldData($configData, $field, $path);
+                if (is_array($data)) {
+                    // TODO: can't handle multi dimensional yet
+                    continue;
                 }
 
                 $fields[] = [
                     'label' => (string) $field->getLabel(),
                     'type' => $field->getType(),
                     'comment' => ((string) $field->getComment()) ?: null,
-                    'options' => $field->hasOptions() ? $field->getOptions() : null,
-                    'value' => $value
+                    'options' =>  $this->getOptionsFromField($field),
+                    'value' => $data ?? ($field->hasOptions() ? 0 : null),
+                    'inherit' => !array_key_exists($path, $configData),
+                    'show_inherit' => $this->isInheritCheckboxRequired($field)
                 ];
             }
             $groups[] = [
@@ -101,5 +154,90 @@ class Section implements ResolverInterface
         }
 
         return $groups;
+    }
+
+    public function getConfigValue($path)
+    {
+        return $this->scopeConfig->getValue(
+            $path,
+            //$this->getScope(),
+            //$this->getScopeCode()
+        );
+    }
+
+    private function getAppConfigDataValue($path)
+    {
+        $appConfig = $this->deploymentConfig->get(System::CONFIG_TYPE);
+
+        //$scope = $this->getScope();
+        //$scopeCode = $this->getStringScopeCode();
+        $scope = ScopeConfigInterface::SCOPE_TYPE_DEFAULT;
+        $scopeCode = '';
+
+        if ($scope === ScopeConfigInterface::SCOPE_TYPE_DEFAULT) {
+            $data = new DataObject(isset($appConfig[$scope]) ? $appConfig[$scope] : []);
+        } else {
+            $data = new DataObject(isset($appConfig[$scope][$scopeCode]) ? $appConfig[$scope][$scopeCode] : []);
+        }
+        return $data->getData($path);
+    }
+
+    private function getFieldData(array $configData, \Magento\Config\Model\Config\Structure\Element\Field $field, $path)
+    {
+        $data = $this->getAppConfigDataValue($path);
+
+        $placeholderValue = $this->settingChecker->getPlaceholderValue(
+            $path,
+            ScopeConfigInterface::SCOPE_TYPE_DEFAULT
+            //$this->getScope(),
+            //$this->getStringScopeCode()
+        );
+
+        if ($placeholderValue) {
+            $data = $placeholderValue;
+        }
+
+        if ($data === null) {
+            $path = $field->getConfigPath() !== null ? $field->getConfigPath() : $path;
+            $data = $this->getConfigValue($path);
+            if ($field->hasBackendModel()) {
+                $backendModel = $field->getBackendModel();
+                // Backend models which implement ProcessorInterface are processed by ScopeConfigInterface
+                if (!$backendModel instanceof ProcessorInterface) {
+                    if (array_key_exists($path, $configData)) {
+                        $data = $configData[$path];
+                    }
+
+                    $backendModel->setPath($path)
+                        ->setValue($data)
+                        //->setWebsite($this->getWebsiteCode())
+                        //->setStore($this->getStoreCode())
+                        ->afterLoad();
+                    $data = $backendModel->getValue();
+                }
+            }
+        }
+
+        return $data;
+    }
+
+    private function getOptionsFromField($field): ?array
+    {
+        if (!$field->hasOptions()) {
+            return null;
+        }
+
+        $options = [];
+        if ($field->hasOptions()) {
+            foreach ($field->getOptions() as $k => $v) {
+                if (is_array($v)) {
+                    $v['label'] = (string)$v['label'];
+                    $options[] = $v;
+                } else {
+                    $options[] = ['value' => (string) $k, 'label' => (string)$v];
+                }
+            }
+        }
+        return $options;
     }
 }
