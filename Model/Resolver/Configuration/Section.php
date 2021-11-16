@@ -61,12 +61,6 @@ class Section implements ResolverInterface
         return false;
     }
 
-    /**
-     * Check if can use website value
-     *
-     * @param int $fieldValue
-     * @return boolean
-     */
     public function canUseWebsiteValue($fieldValue)
     {
         if ($this->getScope() == Form::SCOPE_STORES && $fieldValue) {
@@ -75,13 +69,6 @@ class Section implements ResolverInterface
         return false;
     }
 
-    /**
-     * Check if can use restore value
-     *
-     * @param int $fieldValue
-     * @return bool
-     * @since 100.1.0
-     */
     public function isCanRestoreToDefault($fieldValue)
     {
         if ($this->getScope() == Form::SCOPE_DEFAULT && $fieldValue) {
@@ -137,14 +124,16 @@ class Section implements ResolverInterface
                     continue;
                 }
 
+                $options = $this->getOptionsFromField($field);
+                $inheritRequired = $this->isInheritCheckboxRequired($field);
                 $fields[] = [
                     'label' => (string) $field->getLabel(),
                     'type' => $field->getType(),
                     'comment' => ((string) $field->getComment()) ?: null,
-                    'options' =>  $this->getOptionsFromField($field),
-                    'value' => $data ?? ($field->hasOptions() ? 0 : null),
-                    'inherit' => !array_key_exists($path, $configData),
-                    'show_inherit' => $this->isInheritCheckboxRequired($field)
+                    'options' =>  $options,
+                    'value' => $data ?? ($field->hasOptions() ? $options[0]['value'] : null),
+                    'inherit' => $inheritRequired && !array_key_exists($path, $configData),
+                    'show_inherit' => $inheritRequired
                 ];
             }
             $groups[] = [
