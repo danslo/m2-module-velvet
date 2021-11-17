@@ -116,8 +116,11 @@ class Section implements ResolverInterface
                     continue;
                 }
 
-
                 $path = $field->getPath();
+                if ($path === 'catalog/review/active') {
+                    //echo 1;
+                }
+
                 $data = $this->getFieldData($configData, $field, $path);
                 if (is_array($data)) {
                     // TODO: can't handle multi dimensional yet
@@ -133,7 +136,8 @@ class Section implements ResolverInterface
                     'options' =>  $options,
                     'value' => $data ?? ($field->hasOptions() ? $options[0]['value'] : null),
                     'inherit' => $inheritRequired && !array_key_exists($path, $configData),
-                    'show_inherit' => $inheritRequired
+                    'show_inherit' => $inheritRequired,
+                    'path' => $path
                 ];
             }
             $groups[] = [

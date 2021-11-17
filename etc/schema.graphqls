@@ -75,6 +75,7 @@ type ConfigurationField {
     value: String
     inherit: Boolean!
     show_inherit: Boolean!
+    path: String!
 }
 
 type ConfigurationGroup {
@@ -90,5 +91,6 @@ type Query {
 
 type Mutation {
     generateAdminToken(username: String!,password: String!): String! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\GenerateAdminToken")
-    restoreConfiguration(path: String!): Boolean! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\RestoreConfiguration")
+    restoreConfiguration(path: String!): Boolean! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Configuration\\RestoreConfiguration")
+    saveConfiguration(path: String!, value: String!): Boolean! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Configuration\\SaveConfiguration")
 }
