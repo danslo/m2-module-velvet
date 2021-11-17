@@ -91,6 +91,6 @@ type Query {
 
 type Mutation {
     generateAdminToken(username: String!,password: String!): String! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\GenerateAdminToken")
-    restoreConfiguration(path: String!): Boolean! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Configuration\\RestoreConfiguration")
+    restoreConfiguration(path: String!): String @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Configuration\\RestoreConfiguration")
     saveConfiguration(path: String!, value: String!): Boolean! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Configuration\\SaveConfiguration")
 }

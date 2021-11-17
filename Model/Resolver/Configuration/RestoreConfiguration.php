@@ -6,6 +6,7 @@ namespace Danslo\Velvet\Model\Resolver\Configuration;
 
 use Danslo\Velvet\Model\Authorization;
 use Magento\Framework\App\Config\ReinitableConfigInterface;
+use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
@@ -16,15 +17,18 @@ class RestoreConfiguration implements ResolverInterface
     private Authorization $authorization;
     private ConfigResource $configResource;
     private ReinitableConfigInterface $reinitableConfig;
+    private ScopeConfigInterface $scopeConfig;
 
     public function __construct(
         Authorization $authorization,
         ConfigResource $configResource,
-        ReinitableConfigInterface $reinitableConfig
+        ReinitableConfigInterface $reinitableConfig,
+        ScopeConfigInterface $scopeConfig
     ) {
         $this->authorization = $authorization;
         $this->configResource = $configResource;
         $this->reinitableConfig = $reinitableConfig;
+        $this->scopeConfig = $scopeConfig;
     }
 
     public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
@@ -36,6 +40,6 @@ class RestoreConfiguration implements ResolverInterface
 
         $this->reinitableConfig->reinit();
 
-        return true;
+        return $this->scopeConfig->getValue($args['path']);
     }
 }
