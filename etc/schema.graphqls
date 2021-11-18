@@ -83,10 +83,25 @@ type ConfigurationGroup {
     fields: [ConfigurationField!]!
 }
 
+enum CacheStatus {
+    Disabled
+    Enabled
+    Invalidated
+}
+
+type CacheType {
+    id: String!
+    cache_type: String!
+    description: String!
+    tags: String!
+    status: CacheStatus!
+}
+
 type Query {
     dashboard: Dashboard! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Dashboard")
     configurationTabs: [ConfigurationTab!]! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Configuration\\Tabs")
     configurationSection(section: String!): [ConfigurationGroup!]! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Configuration\\Section")
+    cacheTypes: [CacheType!]! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Cache\\Types")
 }
 
 type Mutation {
