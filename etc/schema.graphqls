@@ -97,11 +97,27 @@ type CacheType {
     status: CacheStatus!
 }
 
+enum IndexerStatus {
+    working
+    valid
+    invalid
+}
+
+type Indexer {
+    title: String!
+    description: String!
+    is_scheduled: Boolean!
+    status: IndexerStatus!
+    schedule_status: String!
+    updated: String!
+}
+
 type Query {
     dashboard: Dashboard! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Dashboard")
     configurationTabs: [ConfigurationTab!]! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Configuration\\Tabs")
     configurationSection(section: String!): [ConfigurationGroup!]! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Configuration\\Section")
     cacheTypes: [CacheType!]! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Cache\\Types")
+    indexers: [Indexer!]! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Indexer\\Indexers")
 }
 
 type Mutation {
