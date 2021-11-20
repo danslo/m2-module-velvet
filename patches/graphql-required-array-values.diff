@@ -1,0 +1,15 @@
+diff --git a/GraphQl/Config/Data/WrappedTypeProcessor.php b/GraphQl/Config/Data/WrappedTypeProcessor.php
+index 28e213c..b37c9c2 100644
+--- a/src/GraphQl/Config/Data/WrappedTypeProcessor.php
++++ b/src/GraphQl/Config/Data/WrappedTypeProcessor.php
+@@ -99,6 +99,10 @@ class WrappedTypeProcessor
+                 if ($field->areItemsRequired()) {
+                     $object = $this->typeFactory->createNonNull($object);
+                 }
++            } elseif ($field instanceof \Magento\Framework\GraphQl\Config\Element\Field) {
++                if ($field->isRequired()) {
++                    $object = $this->typeFactory->createNonNull($object);
++                }
+             }
+             return $this->typeFactory->createList($object);
+         }
