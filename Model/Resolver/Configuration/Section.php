@@ -214,12 +214,8 @@ class Section implements ResolverInterface
         return $data;
     }
 
-    private function getOptionsFromField($field): ?array
+    private function getOptionsFromField($field): array
     {
-        if (!$field->hasOptions()) {
-            return null;
-        }
-
         $options = [];
         if ($field->hasOptions()) {
             foreach ($field->getOptions() as $k => $v) {

@@ -71,7 +71,7 @@ type ConfigurationField {
     label: String!
     type: String!
     comment: String
-    options: [ConfigurationOption!]
+    options: [ConfigurationOption!]!
     value: String
     inherit: Boolean!
     show_inherit: Boolean!
@@ -121,7 +121,7 @@ type Query {
 }
 
 type Mutation {
-    generateAdminToken(username: String!,password: String!): String! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\GenerateAdminToken")
+    generateAdminToken(username: String!, password: String!): String! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\GenerateAdminToken")
     restoreConfiguration(path: String!): String @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Configuration\\RestoreConfiguration")
     saveConfiguration(path: String!, value: String!): Boolean! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Configuration\\SaveConfiguration")
 }
