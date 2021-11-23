@@ -10,6 +10,7 @@ use Magento\Config\App\Config\Type\System;
 use Magento\Config\Block\System\Config\Form;
 use Magento\Config\Model\Config\Factory as ConfigFactory;
 use Magento\Config\Model\Config\Reader\Source\Deployed\SettingChecker;
+use Magento\Config\Model\Config\Structure\Element\Field as ConfigField;
 use Magento\Config\Model\Config\Structure\Element\Group;
 use Magento\Framework\App\Config\Data\ProcessorInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
@@ -77,7 +78,7 @@ class Section implements ResolverInterface
         return false;
     }
 
-    private function isInheritCheckboxRequired(\Magento\Config\Model\Config\Structure\Element\Field $field)
+    private function isInheritCheckboxRequired(ConfigField $field)
     {
         return $this->canUseDefaultValue($field->showInDefault()) ||
             $this->canUseWebsiteValue($field->showInWebsite()) ||
@@ -111,19 +112,15 @@ class Section implements ResolverInterface
         foreach ($section->getChildren() as $group) {
             $fields = [];
             foreach ($group->getChildren() as $field) {
-                if (!($field instanceof \Magento\Config\Model\Config\Structure\Element\Field)) {
-                    // TODO: Some modules place groups inside groups, handle this edge case.
+                if (!($field instanceof ConfigField)) {
+                    // TODO: handle groups inside of groups
                     continue;
                 }
 
                 $path = $field->getPath();
-                if ($path === 'catalog/review/active') {
-                    //echo 1;
-                }
-
                 $data = $this->getFieldData($configData, $field, $path);
                 if (is_array($data)) {
-                    // TODO: can't handle multi dimensional yet
+                    // TODO: handle multi dimensional configuration
                     continue;
                 }
 
@@ -175,7 +172,7 @@ class Section implements ResolverInterface
         return $data->getData($path);
     }
 
-    private function getFieldData(array $configData, \Magento\Config\Model\Config\Structure\Element\Field $field, $path)
+    private function getFieldData(array $configData, ConfigField $field, $path)
     {
         $data = $this->getAppConfigDataValue($path);
 
@@ -195,7 +192,6 @@ class Section implements ResolverInterface
             $data = $this->getConfigValue($path);
             if ($field->hasBackendModel()) {
                 $backendModel = $field->getBackendModel();
-                // Backend models which implement ProcessorInterface are processed by ScopeConfigInterface
                 if (!$backendModel instanceof ProcessorInterface) {
                     if (array_key_exists($path, $configData)) {
                         $data = $configData[$path];
