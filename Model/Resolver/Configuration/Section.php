@@ -159,12 +159,12 @@ class Section implements ResolverInterface
         return 'Use system value';
     }
 
-    public function getConfigValue(string $path, string $scopeType, int $scopeId): ?string
+    public function getConfigValue(string $path, string $scopeType, ?int $scopeId): ?string
     {
         return $this->scopeConfig->getValue($path, $scopeType, $scopeId);
     }
 
-    private function getAppConfigDataValue(string $path, string $scopeType, int $scopeId)
+    private function getAppConfigDataValue(string $path, string $scopeType, ?int $scopeId)
     {
         $appConfig = $this->deploymentConfig->get(System::CONFIG_TYPE);
         $scopeCode = $this->getStringScopeCode($scopeType, $scopeId);
@@ -176,7 +176,7 @@ class Section implements ResolverInterface
         return $data->getData($path);
     }
 
-    private function getStringScopeCode(string $scopeType, int $scopeId): string
+    private function getStringScopeCode(string $scopeType, ?int $scopeId): string
     {
         switch ($scopeType) {
             case Form::SCOPE_WEBSITES:
@@ -187,7 +187,7 @@ class Section implements ResolverInterface
         return '';
     }
 
-    private function getFieldData(array $configData, ConfigField $field, string $path, string $scopeType, int $scopeId)
+    private function getFieldData(array $configData, ConfigField $field, string $path, string $scopeType, ?int $scopeId)
     {
         $data = $this->getAppConfigDataValue($path, $scopeType, $scopeId);
 
