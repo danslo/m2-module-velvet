@@ -49,41 +49,6 @@ class Section implements ResolverInterface
         $this->storeManager = $storeManager;
     }
 
-    public function canUseDefaultValue($fieldValue, $scopeType)
-    {
-        if ($scopeType == Form::SCOPE_STORES && $fieldValue) {
-            return true;
-        }
-        if ($scopeType == Form::SCOPE_WEBSITES && $fieldValue) {
-            return true;
-        }
-        return false;
-    }
-
-    public function canUseWebsiteValue($fieldValue, $scopeType)
-    {
-        if ($scopeType == Form::SCOPE_STORES && $fieldValue) {
-            return true;
-        }
-        return false;
-    }
-
-    public function isCanRestoreToDefault($fieldValue, $scopeType)
-    {
-        if ($scopeType == Form::SCOPE_DEFAULT && $fieldValue) {
-            return true;
-        }
-        return false;
-    }
-
-    private function isInheritCheckboxRequired(ConfigField $field, $scopeType)
-    {
-        return $this->canUseDefaultValue($field->showInDefault(), $scopeType) ||
-            $this->canUseWebsiteValue($field->showInWebsite(), $scopeType) ||
-            $this->isCanRestoreToDefault($field->canRestore(), $scopeType);
-    }
-
-
     public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
     {
         $this->authorization->validate($context);
@@ -149,7 +114,41 @@ class Section implements ResolverInterface
         return $groups;
     }
 
-    private function getInheritCheckboxLabel(ConfigField $field, $scopeType)
+    public function canUseDefaultValue(bool $fieldValue, string $scopeType): bool
+    {
+        if ($scopeType == Form::SCOPE_STORES && $fieldValue) {
+            return true;
+        }
+        if ($scopeType == Form::SCOPE_WEBSITES && $fieldValue) {
+            return true;
+        }
+        return false;
+    }
+
+    public function canUseWebsiteValue(bool $fieldValue, string $scopeType): bool
+    {
+        if ($scopeType == Form::SCOPE_STORES && $fieldValue) {
+            return true;
+        }
+        return false;
+    }
+
+    public function isCanRestoreToDefault(bool $fieldValue, string $scopeType): bool
+    {
+        if ($scopeType == Form::SCOPE_DEFAULT && $fieldValue) {
+            return true;
+        }
+        return false;
+    }
+
+    private function isInheritCheckboxRequired(ConfigField $field, string $scopeType): bool
+    {
+        return $this->canUseDefaultValue($field->showInDefault(), $scopeType) ||
+            $this->canUseWebsiteValue($field->showInWebsite(), $scopeType) ||
+            $this->isCanRestoreToDefault($field->canRestore(), $scopeType);
+    }
+
+    private function getInheritCheckboxLabel(ConfigField $field, string $scopeType): string
     {
         if ($this->canUseWebsiteValue($field->showInWebsite(), $scopeType)) {
             return 'Use Website';
@@ -160,12 +159,12 @@ class Section implements ResolverInterface
         return 'Use system value';
     }
 
-    public function getConfigValue($path, $scopeType, $scopeId)
+    public function getConfigValue(string $path, string $scopeType, int $scopeId): ?string
     {
         return $this->scopeConfig->getValue($path, $scopeType, $scopeId);
     }
 
-    private function getAppConfigDataValue($path, $scopeType, $scopeId)
+    private function getAppConfigDataValue(string $path, string $scopeType, int $scopeId)
     {
         $appConfig = $this->deploymentConfig->get(System::CONFIG_TYPE);
         $scopeCode = $this->getStringScopeCode($scopeType, $scopeId);
@@ -177,7 +176,7 @@ class Section implements ResolverInterface
         return $data->getData($path);
     }
 
-    private function getStringScopeCode($scopeType, $scopeId)
+    private function getStringScopeCode(string $scopeType, int $scopeId): string
     {
         switch ($scopeType) {
             case Form::SCOPE_WEBSITES:
@@ -188,7 +187,7 @@ class Section implements ResolverInterface
         return '';
     }
 
-    private function getFieldData(array $configData, ConfigField $field, $path, $scopeType, $scopeId)
+    private function getFieldData(array $configData, ConfigField $field, string $path, string $scopeType, int $scopeId)
     {
         $data = $this->getAppConfigDataValue($path, $scopeType, $scopeId);
 
