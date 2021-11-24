@@ -75,6 +75,7 @@ type ConfigurationField {
     value: String
     inherit: Boolean!
     show_inherit: Boolean!
+    inherit_label: String!
     path: String!
 }
 
@@ -122,7 +123,7 @@ enum ScopeType {
 type Scope {
     name: String!
     type: ScopeType!
-    id: Int
+    scope_id: Int
     disabled: Boolean!
     children: [Scope!]!
 }
@@ -130,7 +131,7 @@ type Scope {
 type Query {
     dashboard: Dashboard! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Dashboard")
     configurationTabs: [ConfigurationTab!]! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Configuration\\Tabs")
-    configurationSection(section: String!): [ConfigurationGroup!]! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Configuration\\Section")
+    configurationSection(section: String!, scope_type: String, scope_id: Int): [ConfigurationGroup!]! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Configuration\\Section")
     configurationScopes: [Scope!]! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Configuration\\Scopes")
     cacheTypes: [CacheType!]! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Cache\\Types")
     indexers: [Indexer!]! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Indexer\\Indexers")

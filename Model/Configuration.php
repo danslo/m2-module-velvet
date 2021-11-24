@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Danslo\Velvet\Model;
 
+use Danslo\Velvet\Model\Config\ScopeDefinerFactory;
 use Magento\Config\Model\Config\Structure;
 use Magento\Config\Model\Config\Structure\DataFactory as StructureDataFactory;
 use Magento\Config\Model\Config\StructureFactory;
@@ -15,22 +16,27 @@ class Configuration
     private StructureFactory $structureFactory;
     private StructureDataFactory $structureDataFactory;
     private ScopeInterfaceFactory $scopeFactory;
+    private ScopeDefinerFactory $scopeDefinerFactory;
 
     public function __construct(
         StructureFactory $structureFactory,
         StructureDataFactory $structureDataFactory,
-        ScopeInterfaceFactory $scopeFactory
+        ScopeInterfaceFactory $scopeFactory,
+        ScopeDefinerFactory $scopeDefinerFactory
     ) {
         $this->structureFactory = $structureFactory;
         $this->structureDataFactory = $structureDataFactory;
         $this->scopeFactory = $scopeFactory;
+        $this->scopeDefinerFactory = $scopeDefinerFactory;
     }
 
-    public function getAdminhtmlConfigStructure(): Structure
+    public function getAdminhtmlConfigStructure(?string $scope = null): Structure
     {
         $configScope = $this->scopeFactory->create();
         $configScope->setCurrentScope(Area::AREA_ADMINHTML);
-        $structureData = $this->structureDataFactory->create(['configScope' => $configScope]);
-        return $this->structureFactory->create(['structureData' => $structureData]);
+        return $this->structureFactory->create([
+            'structureData' => $this->structureDataFactory->create(['configScope' => $configScope]),
+            'scopeDefiner' => $this->scopeDefinerFactory->create(['scope' => $scope])
+        ]);
     }
 }

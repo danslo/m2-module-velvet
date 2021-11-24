@@ -31,7 +31,7 @@ class Scopes implements ResolverInterface
             $stores[] = [
                 'name'     => $store->getName(),
                 'type'     => Form::SCOPE_STORES,
-                'id'       => $store->getId(),
+                'scope_id' => $store->getId(),
                 'disabled' => false,
                 'children' => []
             ];
@@ -46,7 +46,7 @@ class Scopes implements ResolverInterface
             $groups[] = [
                 'name'     => $group->getName(),
                 'type'     => 'groups',
-                'id'       => $group->getId(),
+                'scope_id' => $group->getId(),
                 'disabled' => true,
                 'children' => $this->getStoresFromGroup($group)
             ];
@@ -61,7 +61,7 @@ class Scopes implements ResolverInterface
             $websites[] = [
                 'name'     => $website->getName(),
                 'type'     => Form::SCOPE_WEBSITES,
-                'id'       => $website->getId(),
+                'scope_id' => $website->getId(),
                 'disabled' => false,
                 'children' => $this->getStoreGroupsFromWebsite($website)
             ];
@@ -74,9 +74,9 @@ class Scopes implements ResolverInterface
         $this->authorization->validate($context);
         return [
             [
-                'name'     => 'Default Config',
+                'name'     => 'Default',
                 'type'     => Form::SCOPE_DEFAULT,
-                'id'       => null,
+                'scope_id' => null,
                 'disabled' => false,
                 'children' => $this->getWebsites()
             ]
