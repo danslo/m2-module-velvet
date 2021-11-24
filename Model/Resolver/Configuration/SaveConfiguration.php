@@ -7,6 +7,7 @@ namespace Danslo\Velvet\Model\Resolver\Configuration;
 use Danslo\Velvet\Model\Authorization;
 use Magento\Config\Model\ResourceModel\Config as ConfigResource;
 use Magento\Framework\App\Config\ReinitableConfigInterface;
+use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
@@ -31,8 +32,12 @@ class SaveConfiguration implements ResolverInterface
     {
         $this->authorization->validate($context);
 
-        // todo: add scopes
-        $this->configResource->saveConfig($args['path'], $args['value']);
+        $this->configResource->saveConfig(
+            $args['path'],
+            $args['value'],
+            $args['scope_type'] ?? ScopeConfigInterface::SCOPE_TYPE_DEFAULT,
+            $args['scope_id'] ?? null
+        );
 
         $this->reinitableConfig->reinit();
 

@@ -35,8 +35,11 @@ class RestoreConfiguration implements ResolverInterface
     {
         $this->authorization->validate($context);
 
-        // todo: add scopes
-        $this->configResource->deleteConfig($args['path']);
+        $this->configResource->deleteConfig(
+            $args['path'],
+            $args['scope_type'] ?? ScopeConfigInterface::SCOPE_TYPE_DEFAULT,
+            $args['scope_id'] ?? null
+        );
 
         $this->reinitableConfig->reinit();
 
