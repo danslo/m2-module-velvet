@@ -19,10 +19,6 @@ class ScopeDefiner extends \Magento\Config\Model\Config\ScopeDefiner
 
     public function getScope()
     {
-        if ($this->scope === null) {
-            return ScopeConfigInterface::SCOPE_TYPE_DEFAULT;
-        }
-
         switch ($this->scope) {
             case Form::SCOPE_STORES:
                 return ScopeInterface::SCOPE_STORE;

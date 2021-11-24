@@ -35,7 +35,7 @@ class GenerateAdminToken implements ResolverInterface
             throw new GraphQlInputException(__('Specify the username.'));
         }
         if (empty(trim($args['password'], " "))) {
-            throw new GraphQlInputException(__('Specify the password].'));
+            throw new GraphQlInputException(__('Specify the password.'));
         }
     }
 }
