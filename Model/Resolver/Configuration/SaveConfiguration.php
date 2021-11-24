@@ -36,7 +36,7 @@ class SaveConfiguration implements ResolverInterface
             $args['path'],
             $args['value'],
             $args['scope_type'] ?? ScopeConfigInterface::SCOPE_TYPE_DEFAULT,
-            $args['scope_id'] ?? null
+            $args['scope_id'] ?? 0
         );
 
         $this->reinitableConfig->reinit();
