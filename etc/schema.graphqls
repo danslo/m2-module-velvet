@@ -129,9 +129,21 @@ type Scope {
 }
 
 type GridOrder {
-    # This type is automatically generated through schema stitching.
+    # Most of this type is automatically generated through schema stitching.
     # Please refer to Model\Config\OrderGridReader.
     entity_id: Int!
+    store_name: String!
+}
+
+input OrderGridInput {
+    page_size: Int
+    page_number: Int
+}
+
+type OrderGridOutput {
+    orders: [GridOrder!]!
+    total_orders: Int!
+    last_page_number: Int!
 }
 
 type Query {
@@ -141,7 +153,7 @@ type Query {
     configurationScopes: [Scope!]! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Configuration\\Scopes")
     cacheTypes: [CacheType!]! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Cache\\Types")
     indexers: [Indexer!]! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Indexer\\Indexers")
-    orderGrid: [GridOrder!]! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Order\\Grid")
+    orderGrid(input: OrderGridInput): OrderGridOutput! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Order\\Grid")
 }
 
 type Mutation {

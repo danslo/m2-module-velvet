@@ -25,6 +25,14 @@
         </arguments>
     </virtualType>
 
+    <type name="Danslo\Velvet\Model\Resolver\Order\Grid">
+        <arguments>
+            <argument name="currencyFormatFields" xsi:type="array">
+                <item name="grand_total" xsi:type="string">grand_total</item>
+            </argument>
+        </arguments>
+    </type>
+
     <!-- Duplicated from module-config/etc/adminhtml/di.xml due to different area. -->
     <preference for="Magento\Config\Model\Config\Backend\File\RequestData\RequestDataInterface" type="Magento\Config\Model\Config\Backend\File\RequestData" />
     <preference for="Magento\Config\Model\Config\Structure\ElementVisibilityInterface" type="Magento\Config\Model\Config\Structure\ElementVisibilityComposite" />
