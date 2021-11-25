@@ -141,7 +141,7 @@ type Query {
     configurationScopes: [Scope!]! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Configuration\\Scopes")
     cacheTypes: [CacheType!]! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Cache\\Types")
     indexers: [Indexer!]! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Indexer\\Indexers")
-    ordersGrid: [GridOrder!]! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Orders\\Grid")
+    orderGrid: [GridOrder!]! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Order\\Grid")
 }
 
 type Mutation {
