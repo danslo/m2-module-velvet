@@ -28,13 +28,14 @@ class CustomersMost implements ResolverInterface
             ->addOrdersCount()
             ->joinCustomerName()
             ->addSumAvgTotals()
-            ->orderByTotalAmount();
+            ->orderByTotalAmount()
+            ->setPageSize(5);
 
         $customers = [];
         foreach ($collection as $customer) {
             $customers[] = [
                 'name' => $customer->getName(),
-                'orders' => $customer->getOrdersCount(),
+                'orders' => $customer->getOrdersCount() ?? 0,
                 'average' =>  $this->currency->format($customer->getOrdersAvgAmount(), [], false),
                 'total' => $this->currency->format($customer->getOrdersSumAmount(), [], false)
             ];

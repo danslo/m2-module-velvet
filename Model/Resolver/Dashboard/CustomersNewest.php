@@ -26,13 +26,14 @@ class CustomersNewest implements ResolverInterface
         $collection = $this->collectionFactory->create()
             ->addCustomerName()
             ->addOrdersStatistics()
-            ->orderByCustomerRegistration();
+            ->orderByCustomerRegistration()
+            ->setPageSize(5);
 
         $customers = [];
         foreach ($collection as $customer) {
             $customers[] = [
                 'name' => $customer->getName(),
-                'orders' => $customer->getOrdersCount(),
+                'orders' => $customer->getOrdersCount() ?? 0,
                 'average' => $this->currency->format($customer->getOrdersAvgAmount(), [], false),
                 'total' => $this->currency->format($customer->getOrdersSumAmount(), [], false)
             ];
