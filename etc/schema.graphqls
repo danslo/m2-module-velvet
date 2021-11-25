@@ -128,6 +128,12 @@ type Scope {
     children: [Scope!]!
 }
 
+type GridOrder {
+    # This type is automatically generated through schema stitching.
+    # Please refer to Model\Config\OrderGridReader.
+    entity_id: Int!
+}
+
 type Query {
     dashboard: Dashboard! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Dashboard")
     configurationTabs(scope_type: ScopeType): [ConfigurationTab!]! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Configuration\\Tabs")
@@ -135,6 +141,7 @@ type Query {
     configurationScopes: [Scope!]! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Configuration\\Scopes")
     cacheTypes: [CacheType!]! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Cache\\Types")
     indexers: [Indexer!]! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Indexer\\Indexers")
+    ordersGrid: [GridOrder!]! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Orders\\Grid")
 }
 
 type Mutation {
