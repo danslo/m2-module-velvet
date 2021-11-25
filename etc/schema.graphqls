@@ -131,7 +131,6 @@ type Scope {
 type GridOrder {
     # Most of this type is automatically generated through schema stitching.
     # Please refer to Model\Config\OrderGridReader.
-    entity_id: Int!
     store_name: String!
 }
 
