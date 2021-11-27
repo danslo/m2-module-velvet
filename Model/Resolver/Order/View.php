@@ -10,6 +10,7 @@ use Magento\Framework\GraphQl\Exception\GraphQlInputException;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 use Magento\Sales\Api\OrderRepositoryInterface;
+use Magento\Sales\Model\Order;
 use Magento\SalesGraphQl\Model\Formatter\Order as OrderFormatter;
 
 class View implements ResolverInterface, AdminAuthorizationInterface
@@ -25,6 +26,18 @@ class View implements ResolverInterface, AdminAuthorizationInterface
         $this->orderFormatter = $orderFormatter;
     }
 
+    private function getOrderActionsAvailability(Order $order): array
+    {
+        return [
+            'can_ship'       => $order->canShip(),
+            'can_cancel'     => $order->canCancel(),
+            'can_invoice'    => $order->canInvoice(),
+            'can_hold'       => $order->canHold(),
+            'can_unhold'     => $order->canUnhold(),
+            'can_creditmemo' => $order->canCreditmemo()
+        ];
+    }
+
     public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
     {
         $orderId = $args['order_id'] ?? null;
@@ -36,7 +49,12 @@ class View implements ResolverInterface, AdminAuthorizationInterface
         // Bypass core customer validation.
         $context->getExtensionAttributes()->setIsCustomer(true);
 
+        /** @var Order $order */
         $order = $this->orderRepository->get($orderId);
-        return $this->orderFormatter->format($order);
+
+        return array_merge(
+            $this->orderFormatter->format($order),
+            $this->getOrderActionsAvailability($order)
+        );
     }
 }
