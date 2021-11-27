@@ -32,6 +32,10 @@ class View implements ResolverInterface, AdminAuthorizationInterface
             throw new GraphQlInputException(__('Required parameter "order_id" is missing'));
         }
 
+        // At this point we have passed admin authorization.
+        // Bypass core customer validation.
+        $context->getExtensionAttributes()->setIsCustomer(true);
+
         $order = $this->orderRepository->get($orderId);
         return $this->orderFormatter->format($order);
     }
