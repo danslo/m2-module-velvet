@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Danslo\Velvet\Model\Resolver\Configuration;
 
-use Danslo\Velvet\Model\Authorization;
+use Danslo\Velvet\Api\AdminAuthorizationInterface;
 use Danslo\Velvet\Model\Configuration;
 use Magento\Config\App\Config\Type\System;
 use Magento\Config\Block\System\Config\Form;
@@ -21,10 +21,9 @@ use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 use Magento\Store\Model\StoreManagerInterface;
 
-class Section implements ResolverInterface
+class Section implements ResolverInterface, AdminAuthorizationInterface
 {
     private Configuration $configuration;
-    private Authorization $authorization;
     private ConfigFactory $configFactory;
     private ScopeConfigInterface $scopeConfig;
     private SettingChecker $settingChecker;
@@ -33,7 +32,6 @@ class Section implements ResolverInterface
 
     public function __construct(
         Configuration $configuration,
-        Authorization $authorization,
         ConfigFactory $configFactory,
         ScopeConfigInterface $scopeConfig,
         SettingChecker $settingChecker,
@@ -41,7 +39,6 @@ class Section implements ResolverInterface
         StoreManagerInterface $storeManager
     ) {
         $this->configuration = $configuration;
-        $this->authorization = $authorization;
         $this->configFactory = $configFactory;
         $this->scopeConfig = $scopeConfig;
         $this->settingChecker = $settingChecker;
@@ -51,8 +48,6 @@ class Section implements ResolverInterface
 
     public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
     {
-        $this->authorization->validate($context);
-
         $scopeType = $args['scope_type'] ?? Form::SCOPE_DEFAULT;
         $scopeId = $args['scope_id'] ?? null;
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Danslo\Velvet\Model\Resolver\Cache;
 
-use Danslo\Velvet\Model\Authorization;
+use Danslo\Velvet\Api\AdminAuthorizationInterface;
 use Magento\Backend\Model\Cache\ResourceModel\Grid\CollectionFactory as CacheCollectionFactory;
 use Magento\Framework\App\Cache\TypeListInterface as CacheTypeList;
 use Magento\Framework\DataObject;
@@ -12,7 +12,7 @@ use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 
-class Types implements ResolverInterface
+class Types implements ResolverInterface, AdminAuthorizationInterface
 {
     private const STATUS_ENABLED     = 'Enabled';
     private const STATUS_DISABLED    = 'Disabled';
@@ -20,16 +20,13 @@ class Types implements ResolverInterface
 
     private CacheCollectionFactory $cacheCollectionFactory;
     private CacheTypeList $cacheTypeList;
-    private Authorization $authorization;
 
     public function __construct(
-        Authorization $authorization,
         CacheCollectionFactory $cacheCollectionFactory,
         CacheTypeList $cacheTypeList
     ) {
         $this->cacheCollectionFactory = $cacheCollectionFactory;
         $this->cacheTypeList = $cacheTypeList;
-        $this->authorization = $authorization;
     }
 
     public function getStatus(DataObject $cacheType): string
@@ -48,8 +45,6 @@ class Types implements ResolverInterface
 
     public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
     {
-        $this->authorization->validate($context);
-
         $cacheTypes = [];
         foreach ($this->cacheCollectionFactory->create() as $cacheType) {
             $cacheTypes[] = [

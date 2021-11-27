@@ -4,22 +4,20 @@ declare(strict_types=1);
 
 namespace Danslo\Velvet\Model\Resolver\Configuration;
 
-use Danslo\Velvet\Model\Authorization;
+use Danslo\Velvet\Api\AdminAuthorizationInterface;
 use Danslo\Velvet\Model\Configuration;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 
-class Tabs implements ResolverInterface
+class Tabs implements ResolverInterface, AdminAuthorizationInterface
 {
     private Configuration $configuration;
-    private Authorization $authorization;
 
-    public function __construct(Configuration $configuration, Authorization $authorization)
+    public function __construct(Configuration $configuration)
     {
         $this->configuration = $configuration;
-        $this->authorization = $authorization;
     }
 
     private function getConfigurationTabs(string $scopeType): array
@@ -37,7 +35,6 @@ class Tabs implements ResolverInterface
 
     public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
     {
-        $this->authorization->validate($context);
         return $this->getConfigurationTabs($args['scope_type'] ?? ScopeConfigInterface::SCOPE_TYPE_DEFAULT);
     }
 }

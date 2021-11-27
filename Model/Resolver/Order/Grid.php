@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Danslo\Velvet\Model\Resolver\Order;
 
-use Danslo\Velvet\Model\Authorization;
+use Danslo\Velvet\Api\AdminAuthorizationInterface;
 use Magento\Directory\Model\Currency;
 use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
@@ -14,9 +14,8 @@ use Magento\Sales\Model\ResourceModel\Order\Grid\Collection;
 use Magento\Sales\Model\ResourceModel\Order\Grid\CollectionFactory as OrderGridCollectionFactory;
 use Magento\Store\Model\System\Store as SystemStore;
 
-class Grid implements ResolverInterface
+class Grid implements ResolverInterface, AdminAuthorizationInterface
 {
-    private Authorization $authorization;
     private OrderGridCollectionFactory $orderGridCollectionFactory;
     private Currency $currency;
     private array $currencyFormatFields;
@@ -24,14 +23,12 @@ class Grid implements ResolverInterface
     private SystemStore $store;
 
     public function __construct(
-        Authorization $authorization,
         OrderGridCollectionFactory $orderGridCollectionFactory,
         Currency $currency,
         SystemStore $store,
         array $currencyFormatFields = [],
         int $defaultPageSize = 20
     ) {
-        $this->authorization = $authorization;
         $this->orderGridCollectionFactory = $orderGridCollectionFactory;
         $this->currency = $currency;
         $this->currencyFormatFields = $currencyFormatFields;
@@ -62,8 +59,6 @@ class Grid implements ResolverInterface
 
     public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
     {
-        $this->authorization->validate($context);
-
         /** @var Collection $collection */
         $collection = $this->orderGridCollectionFactory->create()
             ->setCurPage($args['input']['page_number'] ?? 0)

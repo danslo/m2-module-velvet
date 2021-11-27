@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Danslo\Velvet\Model\Resolver\Configuration;
 
-use Danslo\Velvet\Model\Authorization;
+use Danslo\Velvet\Api\AdminAuthorizationInterface;
 use Magento\Config\Block\System\Config\Form;
 use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
@@ -13,14 +13,12 @@ use Magento\Store\Model\Group;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\Store\Model\Website;
 
-class Scopes implements ResolverInterface
+class Scopes implements ResolverInterface, AdminAuthorizationInterface
 {
-    private Authorization $authorization;
     private StoreManagerInterface $storeManager;
 
-    public function __construct(Authorization $authorization, StoreManagerInterface $storeManager)
+    public function __construct(StoreManagerInterface $storeManager)
     {
-        $this->authorization = $authorization;
         $this->storeManager = $storeManager;
     }
 
@@ -71,7 +69,6 @@ class Scopes implements ResolverInterface
 
     public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
     {
-        $this->authorization->validate($context);
         return [
             [
                 'name'     => 'Default',

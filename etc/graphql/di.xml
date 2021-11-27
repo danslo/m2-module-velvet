@@ -33,6 +33,10 @@
         </arguments>
     </type>
 
+    <type name="Magento\Framework\GraphQl\Query\ResolverInterface">
+        <plugin name="Danslo_Velvet::admin_authorization" type="Danslo\Velvet\Plugin\AdminAuthorizationPlugin" />
+    </type>
+
     <!-- Duplicated from module-config/etc/adminhtml/di.xml due to different area. -->
     <preference for="Magento\Config\Model\Config\Backend\File\RequestData\RequestDataInterface" type="Magento\Config\Model\Config\Backend\File\RequestData" />
     <preference for="Magento\Config\Model\Config\Structure\ElementVisibilityInterface" type="Magento\Config\Model\Config\Structure\ElementVisibilityComposite" />
