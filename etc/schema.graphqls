@@ -183,7 +183,7 @@ type Query {
     cacheTypes: [CacheType!]! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Cache\\Types")
     indexers: [Indexer!]! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Indexer\\Indexers")
     orderGrid(input: OrderGridInput): OrderGridOutput! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Order\\Grid")
-    orderView(order_id: Int!): CustomerOrder! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Order\\View")
+    order(order_id: Int!): OrderViewOrder! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Order\\Order")
 }
 
 type Mutation {

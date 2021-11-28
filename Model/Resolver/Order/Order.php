@@ -10,10 +10,10 @@ use Magento\Framework\GraphQl\Exception\GraphQlInputException;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 use Magento\Sales\Api\OrderRepositoryInterface;
-use Magento\Sales\Model\Order;
+use Magento\Sales\Model\Order as SalesOrder;
 use Magento\SalesGraphQl\Model\Formatter\Order as OrderFormatter;
 
-class View implements ResolverInterface, AdminAuthorizationInterface
+class Order implements ResolverInterface, AdminAuthorizationInterface
 {
     private OrderRepositoryInterface $orderRepository;
     private OrderFormatter $orderFormatter;
@@ -26,7 +26,7 @@ class View implements ResolverInterface, AdminAuthorizationInterface
         $this->orderFormatter = $orderFormatter;
     }
 
-    private function getOrderActionsAvailability(Order $order): array
+    private function getOrderActionsAvailability(SalesOrder $order): array
     {
         return [
             'can_ship'       => $order->canShip(),
@@ -49,7 +49,7 @@ class View implements ResolverInterface, AdminAuthorizationInterface
         // Bypass core customer validation.
         $context->getExtensionAttributes()->setIsCustomer(true);
 
-        /** @var Order $order */
+        /** @var SalesOrder $order */
         $order = $this->orderRepository->get($orderId);
 
         return array_merge(
