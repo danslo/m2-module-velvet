@@ -168,6 +168,17 @@ type OrderViewOrder {
     comments: [SalesCommentItem] @doc(description: "Comments about the order")
     ### END COPY CustomerOrder ###
 
+    customer_email: String!
+    customer_is_guest: Boolean!
+    customer_id: Int
+    customer_dob: String
+    customer_firstname: String
+    customer_lastname: String
+    customer_middlename: String
+    customer_prefix: String
+    customer_suffix: String
+    customer_gender: String
+
     can_ship: Boolean!
     can_cancel: Boolean!
     can_invoice: Boolean!

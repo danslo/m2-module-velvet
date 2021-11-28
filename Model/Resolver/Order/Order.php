@@ -38,6 +38,22 @@ class Order implements ResolverInterface, AdminAuthorizationInterface
         ];
     }
 
+    private function getOrderCustomerData(SalesOrder $order): array
+    {
+        return [
+            'customer_email' => $order->getCustomerEmail(),
+            'customer_is_guest' => (bool) $order->getCustomerIsGuest(),
+            'customer_id' => $order->getCustomerId() !== null ? (int) $order->getCustomerId() : null,
+            'customer_dob' => $order->getCustomerDob(),
+            'customer_firstname' => $order->getCustomerFirstname(),
+            'customer_lastname' => $order->getCustomerLastname(),
+            'customer_middlename' => $order->getCustomerMiddlename(),
+            'customer_prefix' => $order->getCustomerPrefix(),
+            'customer_suffix' => $order->getCustomerSuffix(),
+            'customer_gender' => $order->getCustomerGender()
+        ];
+    }
+
     public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
     {
         $orderId = $args['order_id'] ?? null;
@@ -54,7 +70,8 @@ class Order implements ResolverInterface, AdminAuthorizationInterface
 
         return array_merge(
             $this->orderFormatter->format($order),
-            $this->getOrderActionsAvailability($order)
+            $this->getOrderActionsAvailability($order),
+            $this->getOrderCustomerData($order)
         );
     }
 }
