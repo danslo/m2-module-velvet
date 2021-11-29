@@ -210,4 +210,9 @@ type Mutation {
     generateAdminToken(username: String!, password: String!): String! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\GenerateAdminToken")
     restoreConfiguration(path: String!, scope_type: ScopeType, scope_id: Int): String @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Configuration\\RestoreConfiguration")
     saveConfiguration(path: String!, value: String!, scope_type: ScopeType, scope_id: Int): Boolean! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Configuration\\SaveConfiguration")
+    shipOrder(order_id: Int!): Boolean! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Order\\Ship")
+    cancelOrder(order_id: Int!): Boolean! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Order\\Cancel")
+    invoiceOrder(order_id: Int!): Boolean! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Order\\Invoice")
+    holdOrder(order_id: Int!): Boolean! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Order\\Hold")
+    unholdOrder(order_id: Int!): Boolean! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Order\\Unhold")
 }
