@@ -9,15 +9,15 @@ use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\Exception\GraphQlInputException;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
-use Magento\Sales\Model\OrderRepository;
+use Magento\Sales\Api\OrderManagementInterface;
 
 class Hold implements ResolverInterface, AdminAuthorizationInterface
 {
-    private OrderRepository $orderRepository;
+    private OrderManagementInterface $orderManagement;
 
-    public function __construct(OrderRepository $orderRepository)
+    public function __construct(OrderManagementInterface $orderManagement)
     {
-        $this->orderRepository = $orderRepository;
+        $this->orderManagement = $orderManagement;
     }
 
     public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
@@ -27,7 +27,6 @@ class Hold implements ResolverInterface, AdminAuthorizationInterface
             throw new GraphQlInputException(__('Required parameter "order_id" is missing'));
         }
 
-        $order = $this->orderRepository->get($orderId);
-        // TODO: implement
+        return $this->orderManagement->hold($orderId);
     }
 }
