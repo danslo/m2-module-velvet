@@ -41,17 +41,34 @@ class Order implements ResolverInterface, AdminAuthorizationInterface
     private function getOrderCustomerData(SalesOrder $order): array
     {
         return [
-            'customer_email' => $order->getCustomerEmail(),
-            'customer_is_guest' => (bool) $order->getCustomerIsGuest(),
-            'customer_id' => $order->getCustomerId() !== null ? (int) $order->getCustomerId() : null,
-            'customer_dob' => $order->getCustomerDob(),
-            'customer_firstname' => $order->getCustomerFirstname(),
-            'customer_lastname' => $order->getCustomerLastname(),
+            'customer_email'      => $order->getCustomerEmail(),
+            'customer_is_guest'   => (bool) $order->getCustomerIsGuest(),
+            'customer_id'         => $order->getCustomerId() !== null ? (int) $order->getCustomerId() : null,
+            'customer_dob'        => $order->getCustomerDob(),
+            'customer_firstname'  => $order->getCustomerFirstname(),
+            'customer_lastname'   => $order->getCustomerLastname(),
             'customer_middlename' => $order->getCustomerMiddlename(),
-            'customer_prefix' => $order->getCustomerPrefix(),
-            'customer_suffix' => $order->getCustomerSuffix(),
-            'customer_gender' => $order->getCustomerGender()
+            'customer_prefix'     => $order->getCustomerPrefix(),
+            'customer_suffix'     => $order->getCustomerSuffix(),
+            'customer_gender'     => $order->getCustomerGender()
         ];
+    }
+
+    private function getOrderStatusHistory(SalesOrder $order): array
+    {
+        $statusHistory = [];
+
+        /** @var \Magento\Sales\Model\Order\Status $status */
+        foreach ($order->getStatusHistoryCollection() as $status) {
+            $statusHistory[] = [
+                'created_at' => $status->getCreatedAt(),
+                'status' => $status->getStatus(),
+                'comment' => $status->getComment(),
+                'customer_notified' => (bool) $status->getIsCustomerNotified()
+            ];
+        }
+
+        return ['status_history' => $statusHistory];
     }
 
     public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
@@ -71,7 +88,8 @@ class Order implements ResolverInterface, AdminAuthorizationInterface
         return array_merge(
             $this->orderFormatter->format($order),
             $this->getOrderActionsAvailability($order),
-            $this->getOrderCustomerData($order)
+            $this->getOrderCustomerData($order),
+            $this->getOrderStatusHistory($order)
         );
     }
 }

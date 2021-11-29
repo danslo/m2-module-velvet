@@ -145,6 +145,13 @@ type OrderGridOutput {
     last_page_number: Int!
 }
 
+type OrderStatus {
+    customer_notified: Boolean!
+    status: String!
+    comment: String
+    created_at: String!
+}
+
 # GraphQl does not support creating types from other types (by extending).
 # This can only be achieved through interfaces or by modifying the original type.
 # We want to reuse most of the CustomerOrder resolver, but produce a different type.
@@ -184,6 +191,8 @@ type OrderViewOrder {
     can_invoice: Boolean!
     can_hold: Boolean!
     can_unhold: Boolean!
+
+    status_history: [OrderStatus!]!
 }
 
 type Query {
