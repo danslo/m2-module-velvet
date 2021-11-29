@@ -17,7 +17,7 @@ type DashboardSearchTerm {
 
 type DashboardChartPoint {
     x: String!
-    y: Int!
+    y: Float!
 }
 
 type DashboardChart {
@@ -191,6 +191,7 @@ type OrderViewOrder {
     can_invoice: Boolean!
     can_hold: Boolean!
     can_unhold: Boolean!
+    can_creditmemo: Boolean!
 
     status_history: [OrderStatus!]!
 }
@@ -213,6 +214,7 @@ type Mutation {
     shipOrder(order_id: Int!): Int! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Order\\Ship")
     cancelOrder(order_id: Int!): Boolean! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Order\\Cancel")
     invoiceOrder(order_id: Int!): Int! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Order\\Invoice")
+    refundOrder(order_id: Int!): Int! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Order\\Refund")
     holdOrder(order_id: Int!): Boolean! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Order\\Hold")
     unholdOrder(order_id: Int!): Boolean! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Order\\Unhold")
 }
