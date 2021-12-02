@@ -134,7 +134,7 @@ type GridOrder {
     store_name: String!
 }
 
-input OrderGridInput {
+input GridInput {
     page_size: Int
     page_number: Int
 }
@@ -196,6 +196,12 @@ type OrderViewOrder {
     status_history: [OrderStatus!]!
 }
 
+type CmsPageGridOutput {
+    pages: [CmsPage!]!
+    total_pages: Int!
+    last_page_number: Int!
+}
+
 type Query {
     dashboard: Dashboard! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Dashboard")
     configurationTabs(scope_type: ScopeType): [ConfigurationTab!]! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Configuration\\Tabs")
@@ -203,8 +209,9 @@ type Query {
     configurationScopes: [Scope!]! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Configuration\\Scopes")
     cacheTypes: [CacheType!]! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Cache\\Types")
     indexers: [Indexer!]! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Indexer\\Indexers")
-    orderGrid(input: OrderGridInput): OrderGridOutput! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Order\\Grid")
+    orderGrid(input: GridInput): OrderGridOutput! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Order\\Grid")
     order(order_id: Int!): OrderViewOrder! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Order\\Order")
+    cmsPageGrid(input: GridInput): CmsPageGridOutput @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Cms\\Page\\Grid")
 }
 
 type Mutation {
