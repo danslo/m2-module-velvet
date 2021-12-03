@@ -134,22 +134,25 @@ type GridOrder {
     store_name: String!
 }
 
-input GridInput {
-    page_size: Int
-    page_number: Int
-}
-
-type OrderGridOutput {
-    orders: [GridOrder!]!
-    total_orders: Int!
-    last_page_number: Int!
-}
-
 type OrderStatus {
     customer_notified: Boolean!
     status: String!
     comment: String
     created_at: String!
+}
+
+union GridItem @typeResolver(class: "Danslo\\Velvet\\Model\\Resolver\\Grid\\UnionTypeResolver") =
+    CmsPage | GridOrder
+
+input GridInput {
+    page_size: Int
+    page_number: Int
+}
+
+type GridOutput {
+    items: [GridItem!]!
+    total_items: Int!
+    last_page_number: Int!
 }
 
 # GraphQl does not support creating types from other types (by extending).
@@ -196,12 +199,6 @@ type OrderViewOrder {
     status_history: [OrderStatus!]!
 }
 
-type CmsPageGridOutput {
-    pages: [CmsPage!]!
-    total_pages: Int!
-    last_page_number: Int!
-}
-
 type Query {
     dashboard: Dashboard! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Dashboard")
     configurationTabs(scope_type: ScopeType): [ConfigurationTab!]! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Configuration\\Tabs")
@@ -209,9 +206,9 @@ type Query {
     configurationScopes: [Scope!]! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Configuration\\Scopes")
     cacheTypes: [CacheType!]! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Cache\\Types")
     indexers: [Indexer!]! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Indexer\\Indexers")
-    orderGrid(input: GridInput): OrderGridOutput! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Order\\Grid")
+    orderGrid(input: GridInput): GridOutput! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Order\\Grid")
     order(order_id: Int!): OrderViewOrder! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Order\\Order")
-    cmsPageGrid(input: GridInput): CmsPageGridOutput @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Cms\\Page\\Grid")
+    cmsPageGrid(input: GridInput): GridOutput! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Cms\\Page\\Grid")
 }
 
 type Mutation {
