@@ -135,6 +135,7 @@ type Scope {
 type GridOrder {
     entity_id: Int!
     store_name: String!
+    formatted_grand_total: String!
 }
 
 type GridCustomer {

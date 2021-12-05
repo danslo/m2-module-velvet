@@ -35,7 +35,7 @@ class ItemTransformer implements ItemTransformerInterface
             if (!isset($data[$field])) {
                 continue;
             }
-            $data[$field] = $this->currency->format($data[$field], [], false);
+            $data['formatted_' . $field] = $this->currency->format($data[$field], [], false);
         }
 
         $data['store_name'] = $this->getStorenameFromStoreId((int) $data['store_id']);
