@@ -133,22 +133,24 @@ type Scope {
 # The majority of fields for these grid types are schema stitched. Please see Danslo\Velvet\Model\Config\GridReader.
 # Below fields are custom data, added through ItemTransformers.
 type GridOrder {
+    entity_id: Int!
     store_name: String!
 }
 
 type GridCustomer {
-    website_name: String!
+    entity_id: Int!
 }
 
-type OrderStatus {
-    customer_notified: Boolean!
-    status: String!
-    comment: String
-    created_at: String!
+type GridCmsBlock {
+    block_id: Int!
+}
+
+type GridCmsPage {
+    page_id: Int!
 }
 
 union GridItem @typeResolver(class: "Danslo\\Velvet\\Model\\Resolver\\Grid\\UnionTypeResolver") =
-    CmsPage | GridOrder | CmsBlock | GridCustomer
+    GridCmsPage | GridOrder | GridCmsBlock | GridCustomer
 
 input GridInput {
     page_size: Int
@@ -159,6 +161,13 @@ type GridOutput {
     items: [GridItem!]!
     total_items: Int!
     last_page_number: Int!
+}
+
+type OrderStatus {
+    customer_notified: Boolean!
+    status: String!
+    comment: String
+    created_at: String!
 }
 
 # GraphQl does not support creating types from other types (by extending).

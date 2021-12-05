@@ -16,11 +16,27 @@
         </arguments>
     </virtualType>
 
+    <virtualType name="Danslo\Velvet\Model\Config\GridReader\CmsBlock" type="Danslo\Velvet\Model\Config\GridReader">
+        <arguments>
+            <argument name="schemaType" xsi:type="string">GridCmsBlock</argument>
+            <argument name="tableName" xsi:type="string">cms_block</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="Danslo\Velvet\Model\Config\GridReader\CmsPage" type="Danslo\Velvet\Model\Config\GridReader">
+        <arguments>
+            <argument name="schemaType" xsi:type="string">GridCmsPage</argument>
+            <argument name="tableName" xsi:type="string">cms_page</argument>
+        </arguments>
+    </virtualType>
+
     <virtualType name="Magento\Framework\GraphQlSchemaStitching\Reader">
         <arguments>
             <argument name="readers" xsi:type="array">
                 <item name="orderGridReader" xsi:type="object">Danslo\Velvet\Model\Config\GridReader\Order</item>
                 <item name="customerGridReader" xsi:type="object">Danslo\Velvet\Model\Config\GridReader\Customer</item>
+                <item name="cmsBlockGridReader" xsi:type="object">Danslo\Velvet\Model\Config\GridReader\CmsBlock</item>
+                <item name="cmsPageGridReader" xsi:type="object">Danslo\Velvet\Model\Config\GridReader\CmsPage</item>
             </argument>
         </arguments>
     </virtualType>
