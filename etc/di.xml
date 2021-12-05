@@ -4,28 +4,28 @@
 
     <virtualType name="Danslo\Velvet\Model\Config\GridReader\Order" type="Danslo\Velvet\Model\Config\GridReader">
         <arguments>
-            <argument name="schemaType" xsi:type="string">GridOrder</argument>
+            <argument name="gridItemType" xsi:type="string">GridOrder</argument>
             <argument name="tableName" xsi:type="string">sales_order_grid</argument>
         </arguments>
     </virtualType>
 
     <virtualType name="Danslo\Velvet\Model\Config\GridReader\Customer" type="Danslo\Velvet\Model\Config\GridReader">
         <arguments>
-            <argument name="schemaType" xsi:type="string">GridCustomer</argument>
+            <argument name="gridItemType" xsi:type="string">GridCustomer</argument>
             <argument name="tableName" xsi:type="string">customer_grid_flat</argument>
         </arguments>
     </virtualType>
 
     <virtualType name="Danslo\Velvet\Model\Config\GridReader\CmsBlock" type="Danslo\Velvet\Model\Config\GridReader">
         <arguments>
-            <argument name="schemaType" xsi:type="string">GridCmsBlock</argument>
+            <argument name="gridItemType" xsi:type="string">GridCmsBlock</argument>
             <argument name="tableName" xsi:type="string">cms_block</argument>
         </arguments>
     </virtualType>
 
     <virtualType name="Danslo\Velvet\Model\Config\GridReader\CmsPage" type="Danslo\Velvet\Model\Config\GridReader">
         <arguments>
-            <argument name="schemaType" xsi:type="string">GridCmsPage</argument>
+            <argument name="gridItemType" xsi:type="string">GridCmsPage</argument>
             <argument name="tableName" xsi:type="string">cms_page</argument>
         </arguments>
     </virtualType>

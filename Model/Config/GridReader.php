@@ -11,16 +11,16 @@ class GridReader implements ReaderInterface
 {
     private ResourceConnection $resourceConnection;
     private string $tableName;
-    private string $schemaType;
+    private string $gridItemType;
 
     public function __construct(
         ResourceConnection $resourceConnection,
         string $tableName,
-        string $schemaType
+        string $gridItemType
     ) {
         $this->resourceConnection = $resourceConnection;
         $this->tableName = $tableName;
-        $this->schemaType = $schemaType;
+        $this->gridItemType = $gridItemType;
     }
 
     private function getTypeFromColumnDescription(array $description): String
@@ -49,7 +49,7 @@ class GridReader implements ReaderInterface
 
         $config = [];
         foreach ($connection->describeTable($this->tableName) as $column => $description) {
-            $config[$this->schemaType]['fields'][$column] = [
+            $config[$this->gridItemType]['fields'][$column] = [
                 'name' => $column,
                 'type' => $this->getTypeFromColumnDescription($description),
                 'required' => $description['NULLABLE'] === false,
