@@ -1,11 +1,26 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
-    <virtualType name="Magento\Framework\GraphQlSchemaStitching\Reader"
-                 type="Magento\Framework\GraphQlSchemaStitching\Common\Reader">
+
+    <virtualType name="Danslo\Velvet\Model\Config\GridReader\Order" type="Danslo\Velvet\Model\Config\GridReader">
+        <arguments>
+            <argument name="schemaType" xsi:type="string">GridOrder</argument>
+            <argument name="tableName" xsi:type="string">sales_order_grid</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="Danslo\Velvet\Model\Config\GridReader\Customer" type="Danslo\Velvet\Model\Config\GridReader">
+        <arguments>
+            <argument name="schemaType" xsi:type="string">GridCustomer</argument>
+            <argument name="tableName" xsi:type="string">customer_grid_flat</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="Magento\Framework\GraphQlSchemaStitching\Reader">
         <arguments>
             <argument name="readers" xsi:type="array">
-                <item name="orderGridReader" xsi:type="object">Danslo\Velvet\Model\Config\OrderGridReader</item>
+                <item name="orderGridReader" xsi:type="object">Danslo\Velvet\Model\Config\GridReader\Order</item>
+                <item name="customerGridReader" xsi:type="object">Danslo\Velvet\Model\Config\GridReader\Customer</item>
             </argument>
         </arguments>
     </virtualType>

@@ -130,10 +130,14 @@ type Scope {
     children: [Scope!]!
 }
 
+# The majority of fields for these grid types are schema stitched. Please see Danslo\Velvet\Model\Config\GridReader.
+# Below fields are custom data, added through ItemTransformers.
 type GridOrder {
-    # Most of this type is automatically generated through schema stitching.
-    # Please refer to Model\Config\OrderGridReader.
     store_name: String!
+}
+
+type GridCustomer {
+    website_name: String!
 }
 
 type OrderStatus {
@@ -141,18 +145,6 @@ type OrderStatus {
     status: String!
     comment: String
     created_at: String!
-}
-
-type GridCustomer {
-    entity_id: Int!
-    name: String
-    email: String
-    created_at: String
-    website_id: Int
-    dob: String
-    gender: Int
-    shipping_full: String
-    billing_full: String
 }
 
 union GridItem @typeResolver(class: "Danslo\\Velvet\\Model\\Resolver\\Grid\\UnionTypeResolver") =
