@@ -58,6 +58,14 @@
         </arguments>
     </virtualType>
 
+    <virtualType name="Danslo\Velvet\Model\Resolver\Customer\Grid" type="Danslo\Velvet\Model\Resolver\Grid">
+        <arguments>
+            <argument name="defaultOrderField" xsi:type="string">created_at</argument>
+            <argument name="gridItemType" xsi:type="string">GridCustomer</argument>
+            <argument name="collectionFactoryType" xsi:type="string">Magento\Customer\Model\ResourceModel\Grid\CollectionFactory</argument>
+        </arguments>
+    </virtualType>
+
     <type name="Magento\Framework\GraphQl\Query\ResolverInterface">
         <plugin name="Danslo_Velvet::admin_authorization" type="Danslo\Velvet\Plugin\AdminAuthorizationPlugin" />
     </type>

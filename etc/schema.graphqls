@@ -143,8 +143,20 @@ type OrderStatus {
     created_at: String!
 }
 
+type GridCustomer {
+    entity_id: Int!
+    name: String
+    email: String
+    created_at: String
+    website_id: Int
+    dob: String
+    gender: Int
+    shipping_full: String
+    billing_full: String
+}
+
 union GridItem @typeResolver(class: "Danslo\\Velvet\\Model\\Resolver\\Grid\\UnionTypeResolver") =
-    CmsPage | GridOrder | CmsBlock
+    CmsPage | GridOrder | CmsBlock | GridCustomer
 
 input GridInput {
     page_size: Int
@@ -212,6 +224,7 @@ type Query {
     order(order_id: Int!): OrderViewOrder! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Order\\Order")
     cmsPageGrid(input: GridInput): GridOutput! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Cms\\Page\\Grid")
     cmsBlockGrid(input: GridInput): GridOutput! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Cms\\Block\\Grid")
+    customerGrid(input: GridInput): GridOutput! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Customer\\Grid")
 }
 
 type Mutation {
