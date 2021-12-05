@@ -1,3 +1,5 @@
+scalar Void
+
 type DashboardSales {
     lifetime_sales: String!
     average_order: String!
@@ -223,4 +225,5 @@ type Mutation {
     holdOrder(order_id: Int!): Boolean! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Order\\Hold")
     unholdOrder(order_id: Int!): Boolean! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Order\\Unhold")
     toggleCache(cache_id: String!, enable: Boolean!): Boolean! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Cache\\Toggle")
+    cleanCache(cache_id: String!): Boolean! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Cache\\Clean")
 }
