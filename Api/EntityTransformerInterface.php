@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Danslo\Velvet\Model\Resolver;
+namespace Danslo\Velvet\Api;
 
 interface EntityTransformerInterface
 {
