@@ -18,14 +18,14 @@ class Grid implements ResolverInterface, AdminAuthorizationInterface
     private $collectionFactory;
     private int $defaultPageSize;
     private string $defaultOrderField;
-    private string $gridItemType;
+    private string $schemaType;
     private ?ItemTransformerInterface $itemTransformer;
 
     public function __construct(
         ObjectManagerInterface $objectManager,
         string $collectionFactoryType,
         string $defaultOrderField,
-        string $gridItemType,
+        string $schemaType,
         ItemTransformerInterface $itemTransformer = null,
         int $defaultPageSize = 20
     ) {
@@ -34,7 +34,7 @@ class Grid implements ResolverInterface, AdminAuthorizationInterface
         $this->collectionFactory = $objectManager->create($collectionFactoryType);
         $this->defaultPageSize = $defaultPageSize;
         $this->defaultOrderField = $defaultOrderField;
-        $this->gridItemType = $gridItemType;
+        $this->schemaType = $schemaType;
         $this->itemTransformer = $itemTransformer;
         $this->objectManager = $objectManager;
     }
@@ -48,7 +48,7 @@ class Grid implements ResolverInterface, AdminAuthorizationInterface
 
         $items = [];
         foreach ($collection as $item) {
-            $item = array_merge($item->getData(), ['grid_item_type' => $this->gridItemType]);
+            $item = array_merge($item->getData(), ['schema_type' => $this->schemaType]);
             if ($this->itemTransformer !== null) {
                 $item = $this->itemTransformer->transform($item);
             }

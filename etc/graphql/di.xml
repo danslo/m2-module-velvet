@@ -37,7 +37,7 @@
         <arguments>
             <argument name="defaultOrderField" xsi:type="string">created_at</argument>
             <argument name="itemTransformer" xsi:type="object">Danslo\Velvet\Model\Resolver\Order\Grid\ItemTransformer</argument>
-            <argument name="gridItemType" xsi:type="string">GridOrder</argument>
+            <argument name="schemaType" xsi:type="string">GridOrder</argument>
             <argument name="collectionFactoryType" xsi:type="string">Magento\Sales\Model\ResourceModel\Order\Grid\CollectionFactory</argument>
         </arguments>
     </virtualType>
@@ -45,7 +45,7 @@
     <virtualType name="Danslo\Velvet\Model\Resolver\Cms\Page\Grid" type="Danslo\Velvet\Model\Resolver\Grid">
         <arguments>
             <argument name="defaultOrderField" xsi:type="string">creation_time</argument>
-            <argument name="gridItemType" xsi:type="string">GridCmsPage</argument>
+            <argument name="schemaType" xsi:type="string">GridCmsPage</argument>
             <argument name="collectionFactoryType" xsi:type="string">Magento\Cms\Model\ResourceModel\Page\Grid\CollectionFactory</argument>
         </arguments>
     </virtualType>
@@ -53,7 +53,7 @@
     <virtualType name="Danslo\Velvet\Model\Resolver\Cms\Block\Grid" type="Danslo\Velvet\Model\Resolver\Grid">
         <arguments>
             <argument name="defaultOrderField" xsi:type="string">creation_time</argument>
-            <argument name="gridItemType" xsi:type="string">GridCmsBlock</argument>
+            <argument name="schemaType" xsi:type="string">GridCmsBlock</argument>
             <argument name="collectionFactoryType" xsi:type="string">Magento\Cms\Model\ResourceModel\Block\Grid\CollectionFactory</argument>
         </arguments>
     </virtualType>
@@ -61,7 +61,7 @@
     <virtualType name="Danslo\Velvet\Model\Resolver\Customer\Grid" type="Danslo\Velvet\Model\Resolver\Grid">
         <arguments>
             <argument name="defaultOrderField" xsi:type="string">created_at</argument>
-            <argument name="gridItemType" xsi:type="string">GridCustomer</argument>
+            <argument name="schemaType" xsi:type="string">GridCustomer</argument>
             <argument name="collectionFactoryType" xsi:type="string">Magento\Customer\Model\ResourceModel\Grid\CollectionFactory</argument>
         </arguments>
     </virtualType>

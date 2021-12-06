@@ -14,6 +14,6 @@ class UnionTypeResolver implements TypeResolverInterface
      */
     public function resolveType(array $data): string
     {
-        return $data['grid_item_type'] ?? '';
+        return $data['schema_type'] ?? '';
     }
 }
