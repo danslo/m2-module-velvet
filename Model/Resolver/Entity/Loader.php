@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Danslo\Velvet\Model\Resolver;
+namespace Danslo\Velvet\Model\Resolver\Entity;
 
 use Danslo\Velvet\Api\AdminAuthorizationInterface;
 use Danslo\Velvet\Api\EntityTransformerInterface;
@@ -14,7 +14,7 @@ use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 use Magento\Framework\ObjectManagerInterface;
 
-class Entity implements ResolverInterface, AdminAuthorizationInterface
+class Loader implements ResolverInterface, AdminAuthorizationInterface
 {
     private $entityFactory;
     private AbstractDb $resourceModel;
