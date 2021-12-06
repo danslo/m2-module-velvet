@@ -148,7 +148,7 @@ type GridCmsPage {
     page_id: Int!
 }
 
-union GridItem @typeResolver(class: "Danslo\\Velvet\\Model\\Resolver\\Grid\\UnionTypeResolver") =
+union GridItem @typeResolver(class: "Danslo\\Velvet\\Model\\Resolver\\UnionTypeResolver") =
     GridCmsPage | GridOrder | GridCmsBlock | GridCustomer
 
 input GridInput {
