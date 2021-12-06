@@ -25,7 +25,7 @@
         </arguments>
     </virtualType>
 
-    <type name="Danslo\Velvet\Model\Resolver\Order\Grid\ItemTransformer">
+    <type name="Danslo\Velvet\Model\Resolver\Order\Grid\EntityTransformer">
         <arguments>
             <argument name="currencyFormatFields" xsi:type="array">
                 <item name="grand_total" xsi:type="string">grand_total</item>
@@ -36,7 +36,9 @@
     <virtualType name="Danslo\Velvet\Model\Resolver\Order\Grid" type="Danslo\Velvet\Model\Resolver\Grid">
         <arguments>
             <argument name="defaultOrderField" xsi:type="string">created_at</argument>
-            <argument name="itemTransformer" xsi:type="object">Danslo\Velvet\Model\Resolver\Order\Grid\ItemTransformer</argument>
+            <argument name="entityTransfer" xsi:type="object">
+                Danslo\Velvet\Model\Resolver\Order\Grid\EntityTransformer
+            </argument>
             <argument name="schemaType" xsi:type="string">GridOrder</argument>
             <argument name="collectionFactoryType" xsi:type="string">Magento\Sales\Model\ResourceModel\Order\Grid\CollectionFactory</argument>
         </arguments>

@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Danslo\Velvet\Model\Resolver;
 
 use Danslo\Velvet\Api\AdminAuthorizationInterface;
-use Danslo\Velvet\Model\Resolver\Grid\Item\Types;
-use Danslo\Velvet\Model\Resolver\Grid\ItemTransformerInterface;
 use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
@@ -14,19 +12,18 @@ use Magento\Framework\ObjectManagerInterface;
 
 class Grid implements ResolverInterface, AdminAuthorizationInterface
 {
-    private ObjectManagerInterface $objectManager;
     private $collectionFactory;
     private int $defaultPageSize;
     private string $defaultOrderField;
     private string $schemaType;
-    private ?ItemTransformerInterface $itemTransformer;
+    private ?EntityTransformerInterface $entityTransfer;
 
     public function __construct(
         ObjectManagerInterface $objectManager,
         string $collectionFactoryType,
         string $defaultOrderField,
         string $schemaType,
-        ItemTransformerInterface $itemTransformer = null,
+        EntityTransformerInterface $entityTransfer = null,
         int $defaultPageSize = 20
     ) {
         // can't use generated factories with virtual types
@@ -35,8 +32,7 @@ class Grid implements ResolverInterface, AdminAuthorizationInterface
         $this->defaultPageSize = $defaultPageSize;
         $this->defaultOrderField = $defaultOrderField;
         $this->schemaType = $schemaType;
-        $this->itemTransformer = $itemTransformer;
-        $this->objectManager = $objectManager;
+        $this->entityTransfer = $entityTransfer;
     }
 
     public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
@@ -49,8 +45,8 @@ class Grid implements ResolverInterface, AdminAuthorizationInterface
         $items = [];
         foreach ($collection as $item) {
             $item = array_merge($item->getData(), ['schema_type' => $this->schemaType]);
-            if ($this->itemTransformer !== null) {
-                $item = $this->itemTransformer->transform($item);
+            if ($this->entityTransfer !== null) {
+                $item = $this->entityTransfer->transform($item);
             }
             $items[] = $item;
         }

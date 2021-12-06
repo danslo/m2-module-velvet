@@ -130,8 +130,6 @@ type Scope {
     children: [Scope!]!
 }
 
-# The majority of fields for these grid types are schema stitched. Please see Danslo\Velvet\Model\Config\TableReader.
-# Below fields are custom data, added through ItemTransformers.
 type GridOrder {
     entity_id: Int!
     store_name: String!

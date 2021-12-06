@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Danslo\Velvet\Model\Resolver\Order\Grid;
 
-use Danslo\Velvet\Model\Resolver\Grid\ItemTransformerInterface;
+use Danslo\Velvet\Model\Resolver\EntityTransformerInterface;
 use Magento\Directory\Model\Currency;
 use Magento\Store\Model\System\Store as SystemStore;
 
-class ItemTransformer implements ItemTransformerInterface
+class EntityTransformer implements EntityTransformerInterface
 {
     private Currency $currency;
     private array $currencyFormatFields;
