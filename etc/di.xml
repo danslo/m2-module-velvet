@@ -2,28 +2,28 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
 
-    <virtualType name="Danslo\Velvet\Model\Config\GridReader\Order" type="Danslo\Velvet\Model\Config\GridReader">
+    <virtualType name="Danslo\Velvet\Model\Config\TableReader\Order" type="Danslo\Velvet\Model\Config\TableReader">
         <arguments>
             <argument name="gridItemType" xsi:type="string">GridOrder</argument>
             <argument name="tableName" xsi:type="string">sales_order_grid</argument>
         </arguments>
     </virtualType>
 
-    <virtualType name="Danslo\Velvet\Model\Config\GridReader\Customer" type="Danslo\Velvet\Model\Config\GridReader">
+    <virtualType name="Danslo\Velvet\Model\Config\TableReader\Customer" type="Danslo\Velvet\Model\Config\TableReader">
         <arguments>
             <argument name="gridItemType" xsi:type="string">GridCustomer</argument>
             <argument name="tableName" xsi:type="string">customer_grid_flat</argument>
         </arguments>
     </virtualType>
 
-    <virtualType name="Danslo\Velvet\Model\Config\GridReader\CmsBlock" type="Danslo\Velvet\Model\Config\GridReader">
+    <virtualType name="Danslo\Velvet\Model\Config\TableReader\CmsBlock" type="Danslo\Velvet\Model\Config\TableReader">
         <arguments>
             <argument name="gridItemType" xsi:type="string">GridCmsBlock</argument>
             <argument name="tableName" xsi:type="string">cms_block</argument>
         </arguments>
     </virtualType>
 
-    <virtualType name="Danslo\Velvet\Model\Config\GridReader\CmsPage" type="Danslo\Velvet\Model\Config\GridReader">
+    <virtualType name="Danslo\Velvet\Model\Config\TableReader\CmsPage" type="Danslo\Velvet\Model\Config\TableReader">
         <arguments>
             <argument name="gridItemType" xsi:type="string">GridCmsPage</argument>
             <argument name="tableName" xsi:type="string">cms_page</argument>
@@ -33,10 +33,10 @@
     <virtualType name="Magento\Framework\GraphQlSchemaStitching\Reader">
         <arguments>
             <argument name="readers" xsi:type="array">
-                <item name="orderGridReader" xsi:type="object">Danslo\Velvet\Model\Config\GridReader\Order</item>
-                <item name="customerGridReader" xsi:type="object">Danslo\Velvet\Model\Config\GridReader\Customer</item>
-                <item name="cmsBlockGridReader" xsi:type="object">Danslo\Velvet\Model\Config\GridReader\CmsBlock</item>
-                <item name="cmsPageGridReader" xsi:type="object">Danslo\Velvet\Model\Config\GridReader\CmsPage</item>
+                <item name="orderTableReader" xsi:type="object">Danslo\Velvet\Model\Config\TableReader\Order</item>
+                <item name="customerTableReader" xsi:type="object">Danslo\Velvet\Model\Config\TableReader\Customer</item>
+                <item name="cmsBlockTableReader" xsi:type="object">Danslo\Velvet\Model\Config\TableReader\CmsBlock</item>
+                <item name="cmsPageTableReader" xsi:type="object">Danslo\Velvet\Model\Config\TableReader\CmsPage</item>
             </argument>
         </arguments>
     </virtualType>

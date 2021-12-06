@@ -7,7 +7,7 @@ namespace Danslo\Velvet\Model\Config;
 use Magento\Framework\App\ResourceConnection;
 use Magento\Framework\Config\ReaderInterface;
 
-class GridReader implements ReaderInterface
+class TableReader implements ReaderInterface
 {
     private ResourceConnection $resourceConnection;
     private string $tableName;
