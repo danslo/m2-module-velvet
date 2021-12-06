@@ -72,6 +72,13 @@
         <plugin name="Danslo_Velvet::admin_authorization" type="Danslo\Velvet\Plugin\AdminAuthorizationPlugin" />
     </type>
 
+    <virtualType name="Danslo\Velvet\Model\Resolver\Entity\CmsBlock" type="Danslo\Velvet\Model\Resolver\Entity">
+        <arguments>
+            <argument name="entityFactory" xsi:type="string">Magento\Cms\Model\BlockFactory</argument>
+            <argument name="resourceModel" xsi:type="object">Magento\Cms\Model\ResourceModel\Block</argument>
+        </arguments>
+    </virtualType>
+
     <!-- Duplicated from module-config/etc/adminhtml/di.xml due to different area. -->
     <preference for="Magento\Config\Model\Config\Backend\File\RequestData\RequestDataInterface" type="Magento\Config\Model\Config\Backend\File\RequestData" />
     <preference for="Magento\Config\Model\Config\Structure\ElementVisibilityInterface" type="Magento\Config\Model\Config\Structure\ElementVisibilityComposite" />

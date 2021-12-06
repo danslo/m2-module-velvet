@@ -24,7 +24,7 @@ class Grid implements ResolverInterface, AdminAuthorizationInterface
         string $collectionFactoryType,
         string $defaultOrderField,
         string $schemaType,
-        EntityTransformerInterface $entityTransfer = null,
+        ?EntityTransformerInterface $entityTransfer = null,
         int $defaultPageSize = 20
     ) {
         // can't use generated factories with virtual types

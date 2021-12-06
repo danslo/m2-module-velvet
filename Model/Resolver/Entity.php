@@ -16,15 +16,15 @@ use Magento\Framework\ObjectManagerInterface;
 
 class Entity implements ResolverInterface, AdminAuthorizationInterface
 {
-    private string $entityFactory;
+    private $entityFactory;
     private AbstractDb $resourceModel;
     private ?EntityTransformerInterface $entityTransformer;
 
     public function __construct(
         ObjectManagerInterface $objectManager,
-        string $entityFactory,
+        $entityFactory,
         AbstractDb $resourceModel,
-        ?EntityTransformerInterface $entityTransformer
+        ?EntityTransformerInterface $entityTransformer = null
     ) {
         // can't use generated factories with virtual types
         // see https://github.com/magento/magento2/issues/6896

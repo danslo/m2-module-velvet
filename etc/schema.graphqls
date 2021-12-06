@@ -225,6 +225,7 @@ type Query {
     cmsPageGrid(input: GridInput): GridOutput! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Cms\\Page\\Grid")
     cmsBlockGrid(input: GridInput): GridOutput! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Cms\\Block\\Grid")
     customerGrid(input: GridInput): GridOutput! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Customer\\Grid")
+    block(block_id: Int!): GridCmsBlock! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Entity\\CmsBlock")
 }
 
 type Mutation {
