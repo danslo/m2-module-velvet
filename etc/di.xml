@@ -18,7 +18,7 @@
 
     <virtualType name="Danslo\Velvet\Model\Config\TableReader\CmsBlock" type="Danslo\Velvet\Model\Config\TableReader">
         <arguments>
-            <argument name="schemaType" xsi:type="string">GridCmsBlock</argument>
+            <argument name="schemaType" xsi:type="string">VelvetCmsBlock</argument>
             <argument name="tableName" xsi:type="string">cms_block</argument>
             <argument name="nullableInputFields" xsi:type="array">
                 <item name="creation_time" xsi:type="string">creation_time</item>
@@ -29,7 +29,7 @@
 
     <virtualType name="Danslo\Velvet\Model\Config\TableReader\CmsPage" type="Danslo\Velvet\Model\Config\TableReader">
         <arguments>
-            <argument name="schemaType" xsi:type="string">GridCmsPage</argument>
+            <argument name="schemaType" xsi:type="string">VelvetCmsPage</argument>
             <argument name="tableName" xsi:type="string">cms_page</argument>
         </arguments>
     </virtualType>
