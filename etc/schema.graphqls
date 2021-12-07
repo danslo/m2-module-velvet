@@ -1,5 +1,3 @@
-scalar Void
-
 type DashboardSales {
     lifetime_sales: String!
     average_order: String!
@@ -144,6 +142,10 @@ type GridCmsBlock {
     block_id: Int!
 }
 
+input GridCmsBlockInput {
+    block_id: Int
+}
+
 type GridCmsPage {
     page_id: Int!
 }
@@ -225,7 +227,7 @@ type Query {
     cmsPageGrid(input: GridInput): GridOutput! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Cms\\Page\\Grid")
     cmsBlockGrid(input: GridInput): GridOutput! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Cms\\Block\\Grid")
     customerGrid(input: GridInput): GridOutput! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Customer\\Grid")
-    block(block_id: Int!): GridCmsBlock! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Entity\\CmsBlock")
+    block(block_id: Int!): GridCmsBlock! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Entity\\Loader\\CmsBlock")
 }
 
 type Mutation {
@@ -240,4 +242,5 @@ type Mutation {
     unholdOrder(order_id: Int!): Boolean! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Order\\Unhold")
     toggleCache(cache_id: String!, enable: Boolean!): Boolean! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Cache\\Toggle")
     cleanCache(cache_id: String!): Boolean! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Cache\\Clean")
+    saveBlock(input: GridCmsBlockInput!): GridCmsBlock! @resolver(class: "Danslo\\Velvet\\Model\\Resolver\\Entity\\Persister\\CmsBlock")
 }

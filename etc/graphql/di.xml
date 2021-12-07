@@ -72,11 +72,14 @@
         <plugin name="Danslo_Velvet::admin_authorization" type="Danslo\Velvet\Plugin\AdminAuthorizationPlugin" />
     </type>
 
-    <virtualType name="Danslo\Velvet\Model\Resolver\Entity\CmsBlock" type="Danslo\Velvet\Model\Resolver\Entity\Loader">
+    <virtualType name="Danslo\Velvet\Model\Resolver\Entity\Loader\CmsBlock" type="Danslo\Velvet\Model\Resolver\Entity\Loader">
         <arguments>
             <argument name="entityFactory" xsi:type="string">Magento\Cms\Model\BlockFactory</argument>
             <argument name="resourceModel" xsi:type="object">Magento\Cms\Model\ResourceModel\Block</argument>
         </arguments>
+    </virtualType>
+
+    <virtualType name="Danslo\Velvet\Model\Resolver\Entity\Persister\CmsBlock" type="Danslo\Velvet\Model\Resolver\Entity\Persister">
     </virtualType>
 
     <!-- Duplicated from module-config/etc/adminhtml/di.xml due to different area. -->
