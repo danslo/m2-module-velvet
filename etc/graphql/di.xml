@@ -80,6 +80,10 @@
     </virtualType>
 
     <virtualType name="Danslo\Velvet\Model\Resolver\Entity\Persister\CmsBlock" type="Danslo\Velvet\Model\Resolver\Entity\Persister">
+        <arguments>
+            <argument name="entityFactory" xsi:type="string">Magento\Cms\Model\BlockFactory</argument>
+            <argument name="resourceModel" xsi:type="object">Magento\Cms\Model\ResourceModel\Block</argument>
+        </arguments>
     </virtualType>
 
     <!-- Duplicated from module-config/etc/adminhtml/di.xml due to different area. -->
