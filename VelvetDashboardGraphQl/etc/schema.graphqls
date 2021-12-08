@@ -41,13 +41,17 @@ type DashboardCustomer {
 }
 
 type Dashboard {
-    sales: DashboardSales! @resolver(class: "Danslo\\VelvetDashboardGraphQl\\Model\\Resolver\\Sales")
-    last_orders: [DashboardLastOrder!]! @resolver(class: "Danslo\\VelvetDashboardGraphQl\\Model\\Resolver\\LastOrders")
-    last_search_terms: [DashboardSearchTerm!]! @resolver(class: "Danslo\\VelvetDashboardGraphQl\\Model\\Resolver\\SearchTerms\\Last")
-    top_search_terms: [DashboardSearchTerm!]! @resolver(class: "Danslo\\VelvetDashboardGraphQl\\Model\\Resolver\\SearchTerms\\Top")
-    orders_chart(period: String): DashboardChart! @resolver(class: "Danslo\\VelvetDashboardGraphQl\\Model\\Resolver\\Chart\\Orders")
-    revenue_chart(period: String): DashboardChart! @resolver(class: "Danslo\\VelvetDashboardGraphQl\\Model\\Resolver\\Chart\\Revenue")
-    totals(period: String): DashboardTotals! @resolver(class: "Danslo\\VelvetDashboardGraphQl\\Model\\Resolver\\Totals")
-    customers_newest: [DashboardCustomer!]! @resolver(class: "Danslo\\VelvetDashboardGraphQl\\Model\\Resolver\\CustomersNewest")
-    customers_most: [DashboardCustomer!]! @resolver(class: "Danslo\\VelvetDashboardGraphQl\\Model\\Resolver\\CustomersMost")
+    sales: DashboardSales! @resolver(class: "Danslo\\VelvetDashboardGraphQl\\Model\\Resolver\\Dashboard\\Sales")
+    last_orders: [DashboardLastOrder!]! @resolver(class: "Danslo\\VelvetDashboardGraphQl\\Model\\Resolver\\Dashboard\\LastOrders")
+    last_search_terms: [DashboardSearchTerm!]! @resolver(class: "Danslo\\VelvetDashboardGraphQl\\Model\\Resolver\\SearchTerms\\Dashboard\\Last")
+    top_search_terms: [DashboardSearchTerm!]! @resolver(class: "Danslo\\VelvetDashboardGraphQl\\Model\\Resolver\\SearchTerms\\Dashboard\\Top")
+    orders_chart(period: String): DashboardChart! @resolver(class: "Danslo\\VelvetDashboardGraphQl\\Model\\Resolver\\Chart\\Dashboard\\Orders")
+    revenue_chart(period: String): DashboardChart! @resolver(class: "Danslo\\VelvetDashboardGraphQl\\Model\\Resolver\\Chart\\Dashboard\\Revenue")
+    totals(period: String): DashboardTotals! @resolver(class: "Danslo\\VelvetDashboardGraphQl\\Model\\Resolver\\Dashboard\\Totals")
+    customers_newest: [DashboardCustomer!]! @resolver(class: "Danslo\\VelvetDashboardGraphQl\\Model\\Resolver\\Dashboard\\CustomersNewest")
+    customers_most: [DashboardCustomer!]! @resolver(class: "Danslo\\VelvetDashboardGraphQl\\Model\\Resolver\\Dashboard\\CustomersMost")
+}
+
+type Query {
+    dashboard: Dashboard! @resolver(class: "Danslo\\VelvetDashboardGraphQl\\Model\\Resolver\\Dashboard")
 }

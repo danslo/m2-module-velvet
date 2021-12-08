@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Danslo\VelvetDashboardGraphQl\Model\Resolver;
+namespace Danslo\VelvetDashboardGraphQl\Model\Resolver\Dashboard;
 
 use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
