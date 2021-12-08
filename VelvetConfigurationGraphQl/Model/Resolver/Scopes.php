@@ -79,4 +79,9 @@ class Scopes implements ResolverInterface, AdminAuthorizationInterface
             ]
         ];
     }
+
+    public function getResource(): string
+    {
+        return 'Magento_Config::config';
+    }
 }

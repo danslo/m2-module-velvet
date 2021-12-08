@@ -5,6 +5,7 @@
             <argument name="defaultOrderField" xsi:type="string">created_at</argument>
             <argument name="schemaType" xsi:type="string">VelvetGridCustomer</argument>
             <argument name="collectionFactoryType" xsi:type="string">Magento\Customer\Model\ResourceModel\Grid\CollectionFactory</argument>
+            <argument name="aclResource" xsi:type="string">Magento_Customer::customer</argument>
         </arguments>
     </virtualType>
 </config>

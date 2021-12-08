@@ -34,4 +34,9 @@ class Toggle implements ResolverInterface, AdminAuthorizationInterface
 
         return in_array($cacheId, $this->cacheManager->setEnabled([$cacheId], $enable));
     }
+
+    public function getResource(): string
+    {
+        return 'Magento_Backend::toggling_cache_type';
+    }
 }

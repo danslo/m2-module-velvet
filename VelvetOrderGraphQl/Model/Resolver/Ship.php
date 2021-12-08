@@ -29,4 +29,9 @@ class Ship implements ResolverInterface, AdminAuthorizationInterface
 
         return $this->shipOrder->execute($orderId);
     }
+
+    public function getResource(): string
+    {
+        return 'Magento_Sales::ship';
+    }
 }

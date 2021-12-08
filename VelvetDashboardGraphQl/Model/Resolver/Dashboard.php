@@ -15,4 +15,9 @@ class Dashboard implements ResolverInterface, AdminAuthorizationInterface
     {
         return [];
     }
+
+    public function getResource(): string
+    {
+        return 'Magento_Backend::dashboard';
+    }
 }

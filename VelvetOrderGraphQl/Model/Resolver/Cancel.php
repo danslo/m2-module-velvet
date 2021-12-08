@@ -29,4 +29,9 @@ class Cancel implements ResolverInterface, AdminAuthorizationInterface
 
         return $this->orderManagement->cancel($orderId);
     }
+
+    public function getResource(): string
+    {
+        return 'Magento_Sales::cancel';
+    }
 }

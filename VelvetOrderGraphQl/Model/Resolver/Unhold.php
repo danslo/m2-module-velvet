@@ -29,4 +29,9 @@ class Unhold implements ResolverInterface, AdminAuthorizationInterface
 
         return $this->orderManagement->unHold($orderId);
     }
+
+    public function getResource(): string
+    {
+        return 'Magento_Sales::unhold';
+    }
 }

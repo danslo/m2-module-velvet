@@ -38,4 +38,9 @@ class SaveConfiguration implements ResolverInterface, AdminAuthorizationInterfac
 
         return true;
     }
+
+    public function getResource(): string
+    {
+        return 'Magento_Config::config';
+    }
 }

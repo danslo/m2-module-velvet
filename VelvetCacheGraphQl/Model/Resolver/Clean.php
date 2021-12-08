@@ -29,4 +29,9 @@ class Clean implements ResolverInterface, AdminAuthorizationInterface
         $this->cacheManager->clean([$cacheId]);
         return true;
     }
+
+    public function getResource(): string
+    {
+        return 'Magento_Backend::cache';
+    }
 }

@@ -29,4 +29,9 @@ class Refund implements ResolverInterface, AdminAuthorizationInterface
 
         return $this->refundOrder->execute($orderId);
     }
+
+    public function getResource(): string
+    {
+        return 'Magento_Sales::creditmemo';
+    }
 }

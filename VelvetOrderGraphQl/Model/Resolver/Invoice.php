@@ -29,4 +29,9 @@ class Invoice implements ResolverInterface, AdminAuthorizationInterface
 
         return $this->invoiceOrder->execute($orderId, true);
     }
+
+    public function getResource(): string
+    {
+        return 'Magento_Sales::invoice';
+    }
 }

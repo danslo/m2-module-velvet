@@ -40,4 +40,9 @@ class RestoreConfiguration implements ResolverInterface, AdminAuthorizationInter
 
         return $this->scopeConfig->getValue($args['path']);
     }
+
+    public function getResource(): string
+    {
+        return 'Magento_Config::config';
+    }
 }

@@ -92,4 +92,9 @@ class Order implements ResolverInterface, AdminAuthorizationInterface
             $this->getOrderStatusHistory($order)
         );
     }
+
+    public function getResource(): string
+    {
+        return 'Magento_Sales::sales_order';
+    }
 }

@@ -57,4 +57,9 @@ class Types implements ResolverInterface, AdminAuthorizationInterface
         }
         return $cacheTypes;
     }
+
+    public function getResource(): string
+    {
+        return 'Magento_Backend::cache';
+    }
 }

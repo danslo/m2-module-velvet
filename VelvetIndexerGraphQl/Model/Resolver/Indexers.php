@@ -39,4 +39,9 @@ class Indexers implements ResolverInterface, AdminAuthorizationInterface
         }
         return $indexers;
     }
+
+    public function getResource(): string
+    {
+        return 'Magento_Indexer::index';
+    }
 }

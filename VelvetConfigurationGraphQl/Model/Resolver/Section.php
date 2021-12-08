@@ -234,4 +234,9 @@ class Section implements ResolverInterface, AdminAuthorizationInterface
         }
         return $options;
     }
+
+    public function getResource(): string
+    {
+        return 'Magento_Config::config';
+    }
 }

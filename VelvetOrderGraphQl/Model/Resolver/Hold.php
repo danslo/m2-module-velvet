@@ -29,4 +29,9 @@ class Hold implements ResolverInterface, AdminAuthorizationInterface
 
         return $this->orderManagement->hold($orderId);
     }
+
+    public function getResource(): string
+    {
+        return 'Magento_Sales::hold';
+    }
 }

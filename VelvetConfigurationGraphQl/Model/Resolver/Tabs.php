@@ -37,4 +37,9 @@ class Tabs implements ResolverInterface, AdminAuthorizationInterface
     {
         return $this->getConfigurationTabs($args['scope_type'] ?? ScopeConfigInterface::SCOPE_TYPE_DEFAULT);
     }
+
+    public function getResource(): string
+    {
+        return 'Magento_Config::config';
+    }
 }

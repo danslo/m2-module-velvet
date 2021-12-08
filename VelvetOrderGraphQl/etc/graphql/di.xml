@@ -13,6 +13,7 @@
             <argument name="entityTransfer" xsi:type="object">Danslo\VelvetOrderGraphQl\Model\Resolver\Grid\EntityTransformer</argument>
             <argument name="schemaType" xsi:type="string">VelvetGridOrder</argument>
             <argument name="collectionFactoryType" xsi:type="string">Magento\Sales\Model\ResourceModel\Order\Grid\CollectionFactory</argument>
+            <argument name="aclResource" xsi:type="string">Magento_Sales::sales_order</argument>
         </arguments>
     </virtualType>
 </config>
