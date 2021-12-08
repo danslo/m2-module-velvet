@@ -1,8 +1,7 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
-    <virtualType name="Danslo\VelvetOrderGraphQl\Model\GraphQl\TableReader\Order"
-                 type="Danslo\VelvetGraphQl\Model\GraphQl\TableReader">
+    <virtualType name="Danslo\VelvetOrderGraphQl\Model\GraphQl\TableReader\Order" type="Danslo\VelvetGraphQl\Model\GraphQl\TableReader">
         <arguments>
             <argument name="schemaType" xsi:type="string">VelvetGridOrder</argument>
             <argument name="tableName" xsi:type="string">sales_order_grid</argument>
