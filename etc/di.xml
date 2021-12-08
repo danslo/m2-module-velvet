@@ -4,14 +4,14 @@
 
     <virtualType name="Danslo\Velvet\Model\Config\TableReader\Order" type="Danslo\Velvet\Model\Config\TableReader">
         <arguments>
-            <argument name="schemaType" xsi:type="string">GridOrder</argument>
+            <argument name="schemaType" xsi:type="string">VelvetGridOrder</argument>
             <argument name="tableName" xsi:type="string">sales_order_grid</argument>
         </arguments>
     </virtualType>
 
     <virtualType name="Danslo\Velvet\Model\Config\TableReader\Customer" type="Danslo\Velvet\Model\Config\TableReader">
         <arguments>
-            <argument name="schemaType" xsi:type="string">GridCustomer</argument>
+            <argument name="schemaType" xsi:type="string">VelvetGridCustomer</argument>
             <argument name="tableName" xsi:type="string">customer_grid_flat</argument>
         </arguments>
     </virtualType>
