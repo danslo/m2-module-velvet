@@ -1,0 +1,22 @@
+enum CacheStatus {
+    Disabled
+    Enabled
+    Invalidated
+}
+
+type CacheType {
+    id: String!
+    cache_type: String!
+    description: String!
+    tags: String!
+    status: CacheStatus!
+}
+
+type Query {
+    cacheTypes: [CacheType!]! @resolver(class: "Danslo\\VelvetCacheGraphQl\\Model\\Resolver\\Types")
+}
+
+type Mutation {
+    toggleCache(cache_id: String!, enable: Boolean!): Boolean! @resolver(class: "Danslo\\VelvetCacheGraphQl\\Model\\Resolver\\Toggle")
+    cleanCache(cache_id: String!): Boolean! @resolver(class: "Danslo\\VelvetCacheGraphQl\\Model\\Resolver\\Clean")
+}
