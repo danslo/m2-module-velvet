@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Danslo\VelvetGraphQl\Model\Resolver\Order;
+namespace Danslo\VelvetOrderGraphQl\Model\Resolver;
 
 use Danslo\VelvetGraphQl\Api\AdminAuthorizationInterface;
 use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\Exception\GraphQlInputException;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
-use Magento\Sales\Api\RefundOrderInterface;
+use Magento\Sales\Api\OrderManagementInterface;
 
-class Refund implements ResolverInterface, AdminAuthorizationInterface
+class Hold implements ResolverInterface, AdminAuthorizationInterface
 {
-    private RefundOrderInterface $refundOrder;
+    private OrderManagementInterface $orderManagement;
 
-    public function __construct(RefundOrderInterface $refundOrder)
+    public function __construct(OrderManagementInterface $orderManagement)
     {
-        $this->refundOrder = $refundOrder;
+        $this->orderManagement = $orderManagement;
     }
 
     public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
@@ -27,6 +27,6 @@ class Refund implements ResolverInterface, AdminAuthorizationInterface
             throw new GraphQlInputException(__('Required parameter "order_id" is missing'));
         }
 
-        return $this->refundOrder->execute($orderId);
+        return $this->orderManagement->hold($orderId);
     }
 }
