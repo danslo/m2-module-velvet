@@ -1,0 +1,18 @@
+enum IndexerStatus {
+    working
+    valid
+    invalid
+}
+
+type Indexer {
+    title: String!
+    description: String!
+    is_scheduled: Boolean!
+    status: IndexerStatus!
+    schedule_status: String!
+    updated: String!
+}
+
+type Query {
+    indexers: [Indexer!]! @resolver(class: "Danslo\\VelvetIndexerGraphQl\\Model\\Resolver\\Indexers")
+}

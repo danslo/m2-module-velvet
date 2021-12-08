@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Danslo\VelvetGraphQl\Model\Resolver\Indexer;
+namespace Danslo\VelvetIndexerGraphQl\Model\Resolver;
 
 use Danslo\VelvetGraphQl\Api\AdminAuthorizationInterface;
 use Magento\Framework\GraphQl\Config\Element\Field;
