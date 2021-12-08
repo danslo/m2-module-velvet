@@ -1,0 +1,53 @@
+type DashboardSales {
+    lifetime_sales: String!
+    average_order: String!
+}
+
+type DashboardLastOrder {
+    customer_name: String!
+    num_items: Int!,
+    total: String!
+}
+
+type DashboardSearchTerm {
+    search_term: String!
+    results: Int!
+    uses: Int!
+}
+
+type DashboardChartPoint {
+    x: String!
+    y: Float!
+}
+
+type DashboardChart {
+    label: String!
+    points: [DashboardChartPoint!]!
+    period: String!
+}
+
+type DashboardTotals {
+    revenue: String!
+    tax: String!
+    shipping: String!
+    quantity: Int!
+}
+
+type DashboardCustomer {
+    name: String!
+    orders: Int!
+    average: String!
+    total: String!
+}
+
+type Dashboard {
+    sales: DashboardSales! @resolver(class: "Danslo\\VelvetDashboardGraphQl\\Model\\Resolver\\Sales")
+    last_orders: [DashboardLastOrder!]! @resolver(class: "Danslo\\VelvetDashboardGraphQl\\Model\\Resolver\\LastOrders")
+    last_search_terms: [DashboardSearchTerm!]! @resolver(class: "Danslo\\VelvetDashboardGraphQl\\Model\\Resolver\\SearchTerms\\Last")
+    top_search_terms: [DashboardSearchTerm!]! @resolver(class: "Danslo\\VelvetDashboardGraphQl\\Model\\Resolver\\SearchTerms\\Top")
+    orders_chart(period: String): DashboardChart! @resolver(class: "Danslo\\VelvetDashboardGraphQl\\Model\\Resolver\\Chart\\Orders")
+    revenue_chart(period: String): DashboardChart! @resolver(class: "Danslo\\VelvetDashboardGraphQl\\Model\\Resolver\\Chart\\Revenue")
+    totals(period: String): DashboardTotals! @resolver(class: "Danslo\\VelvetDashboardGraphQl\\Model\\Resolver\\Totals")
+    customers_newest: [DashboardCustomer!]! @resolver(class: "Danslo\\VelvetDashboardGraphQl\\Model\\Resolver\\CustomersNewest")
+    customers_most: [DashboardCustomer!]! @resolver(class: "Danslo\\VelvetDashboardGraphQl\\Model\\Resolver\\CustomersMost")
+}

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Danslo\VelvetGraphQl\Model\Resolver\Dashboard;
+namespace Danslo\VelvetDashboardGraphQl\Model\Resolver;
 
 use Magento\Backend\Model\Dashboard\Chart as DashboardChart;
 use Magento\Framework\GraphQl\Config\Element\Field;
@@ -26,7 +26,7 @@ class Chart implements ResolverInterface
     {
         $period = $args['period'] ?? '7d';
         return [
-            'label'  => $this->label,
+            'label' => $this->label,
             'points' => $this->dashboardChart->getByPeriod($period, $this->chartParam),
             'period' => $period
         ];
