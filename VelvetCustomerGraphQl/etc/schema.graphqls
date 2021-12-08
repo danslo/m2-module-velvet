@@ -1,0 +1,7 @@
+type VelvetGridCustomer {
+    entity_id: Int!
+}
+
+type Query {
+    customerGrid(input: GridInput): GridOutput! @resolver(class: "Danslo\\VelvetCustomerGraphQl\\Model\\Resolver\\Grid")
+}
