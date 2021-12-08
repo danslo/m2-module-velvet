@@ -1,0 +1,21 @@
+type VelvetCmsBlock {
+    block_id: Int!
+}
+
+input VelvetCmsBlockInput {
+    block_id: Int
+}
+
+type VelvetCmsPage {
+    page_id: Int!
+}
+
+type Query {
+    cmsPageGrid(input: GridInput): GridOutput! @resolver(class: "Danslo\\VelvetCmsGraphQl\\Model\\Resolver\\Page\\Grid")
+    cmsBlockGrid(input: GridInput): GridOutput! @resolver(class: "Danslo\\VelvetCmsGraphQl\\Model\\Resolver\\Block\\Grid")
+    block(block_id: Int!): VelvetCmsBlock! @resolver(class: "Danslo\\VelvetCmsGraphQl\\Model\\Resolver\\Entity\\Loader\\CmsBlock")
+}
+
+type Mutation {
+    saveBlock(input: VelvetCmsBlockInput!): VelvetCmsBlock! @resolver(class: "Danslo\\VelvetCmsGraphQl\\Model\\Resolver\\Entity\\Persister\\CmsBlock")
+}
