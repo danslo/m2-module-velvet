@@ -1,14 +1,7 @@
-type VelvetCmsBlock {
-    block_id: Int!
-}
+type VelvetCmsBlock {}
+input VelvetCmsBlockInput {}
 
-input VelvetCmsBlockInput {
-    block_id: Int
-}
-
-type VelvetCmsPage {
-    page_id: Int!
-}
+type VelvetCmsPage {}
 
 type Query {
     cmsPageGrid(input: GridInput): GridOutput! @resolver(class: "Danslo\\VelvetCmsGraphQl\\Model\\Resolver\\Page\\Grid")

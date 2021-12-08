@@ -1,5 +1,4 @@
 type VelvetGridOrder {
-    entity_id: Int!
     store_name: String!
     formatted_grand_total: String!
 }

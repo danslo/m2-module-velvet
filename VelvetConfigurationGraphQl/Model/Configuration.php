@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Danslo\VelvetConfigurationGraphQl\Model;
 
-use Danslo\VelvetCustomerGraphQl\Model\Config\ScopeDefinerFactory;
+use Danslo\VelvetConfigurationGraphQl\Model\Config\ScopeDefinerFactory;
 use Magento\Config\Model\Config\Structure;
 use Magento\Config\Model\Config\Structure\DataFactory as StructureDataFactory;
 use Magento\Config\Model\Config\StructureFactory;
