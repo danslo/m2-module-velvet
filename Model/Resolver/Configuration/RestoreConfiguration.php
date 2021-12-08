@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Danslo\Velvet\Model\Resolver\Configuration;
+namespace Danslo\VelvetGraphQl\Model\Resolver\Configuration;
 
-use Danslo\Velvet\Api\AdminAuthorizationInterface;
+use Danslo\VelvetGraphQl\Api\AdminAuthorizationInterface;
 use Magento\Config\Model\ResourceModel\Config as ConfigResource;
 use Magento\Framework\App\Config\ReinitableConfigInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Danslo\Velvet\Model\Resolver;
+namespace Danslo\VelvetGraphQl\Model\Resolver;
 
 use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\Exception\GraphQlAuthorizationException;

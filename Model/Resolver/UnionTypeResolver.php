@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Danslo\Velvet\Model\Resolver;
+namespace Danslo\VelvetGraphQl\Model\Resolver;
 
 use Magento\Framework\GraphQl\Query\Resolver\TypeResolverInterface;
 

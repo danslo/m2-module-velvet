@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Danslo\Velvet\Model;
+namespace Danslo\VelvetGraphQl\Model;
 
 use Magento\Authorization\Model\UserContextInterface;
 use Magento\Framework\GraphQl\Exception\GraphQlAuthorizationException;

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Danslo\Velvet\Model\Resolver\Configuration;
+namespace Danslo\VelvetGraphQl\Model\Resolver\Configuration;
 
-use Danslo\Velvet\Api\AdminAuthorizationInterface;
-use Danslo\Velvet\Model\Configuration;
+use Danslo\VelvetGraphQl\Api\AdminAuthorizationInterface;
+use Danslo\VelvetGraphQl\Model\Configuration;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\Query\ResolverInterface;

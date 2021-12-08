@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Danslo\Velvet\Model\Resolver\Dashboard;
+namespace Danslo\VelvetGraphQl\Model\Resolver\Dashboard;
 
 use Magento\Backend\Model\Dashboard\Chart as DashboardChart;
 use Magento\Framework\GraphQl\Config\Element\Field;

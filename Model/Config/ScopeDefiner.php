@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Danslo\Velvet\Model\Config;
+namespace Danslo\VelvetGraphQl\Model\Config;
 
 use Magento\Config\Block\System\Config\Form;
 use Magento\Framework\App\Config\ScopeConfigInterface;

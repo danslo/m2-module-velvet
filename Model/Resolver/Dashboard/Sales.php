@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Danslo\Velvet\Model\Resolver\Dashboard;
+namespace Danslo\VelvetGraphQl\Model\Resolver\Dashboard;
 
 use Magento\Directory\Model\Currency;
 use Magento\Framework\GraphQl\Config\Element\Field;

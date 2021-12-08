@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Danslo\Velvet\Api;
+namespace Danslo\VelvetGraphQl\Api;
 
 interface EntityTransformerInterface
 {

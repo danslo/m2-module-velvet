@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Danslo\Velvet\Model\Resolver\Cache;
+namespace Danslo\VelvetGraphQl\Model\Resolver\Cache;
 
-use Danslo\Velvet\Api\AdminAuthorizationInterface;
+use Danslo\VelvetGraphQl\Api\AdminAuthorizationInterface;
 use Magento\Backend\Model\Cache\ResourceModel\Grid\CollectionFactory as CacheCollectionFactory;
 use Magento\Framework\App\Cache\TypeListInterface as CacheTypeList;
 use Magento\Framework\DataObject;

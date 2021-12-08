@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Danslo\Velvet\Model;
+namespace Danslo\VelvetGraphQl\Model;
 
-use Danslo\Velvet\Model\Config\ScopeDefinerFactory;
+use Danslo\VelvetGraphQl\Model\Config\ScopeDefinerFactory;
 use Magento\Config\Model\Config\Structure;
 use Magento\Config\Model\Config\Structure\DataFactory as StructureDataFactory;
 use Magento\Config\Model\Config\StructureFactory;

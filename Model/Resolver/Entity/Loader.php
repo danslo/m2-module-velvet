@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Danslo\Velvet\Model\Resolver\Entity;
+namespace Danslo\VelvetGraphQl\Model\Resolver\Entity;
 
-use Danslo\Velvet\Api\AdminAuthorizationInterface;
-use Danslo\Velvet\Api\EntityTransformerInterface;
+use Danslo\VelvetGraphQl\Api\AdminAuthorizationInterface;
+use Danslo\VelvetGraphQl\Api\EntityTransformerInterface;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\Exception\GraphQlInputException;
