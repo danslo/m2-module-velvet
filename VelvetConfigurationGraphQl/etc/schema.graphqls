@@ -1,0 +1,42 @@
+type ConfigurationSection {
+    path: String!
+    label: String!
+}
+
+type ConfigurationTab {
+    label: String!
+    sections: [ConfigurationSection!]!
+}
+
+type ConfigurationOption {
+    label: String!
+    value: String
+}
+
+type ConfigurationField {
+    label: String!
+    type: String!
+    comment: String
+    options: [ConfigurationOption!]!
+    value: String
+    inherit: Boolean!
+    show_inherit: Boolean!
+    inherit_label: String!
+    path: String!
+}
+
+type ConfigurationGroup {
+    label: String!
+    fields: [ConfigurationField!]!
+}
+
+type Query {
+    configurationTabs(scope_type: ScopeType): [ConfigurationTab!]! @resolver(class: "Danslo\\VelvetConfigurationGraphQl\\Model\\Resolver\\Tabs")
+    configurationSection(section: String!, scope_type: ScopeType, scope_id: Int): [ConfigurationGroup!]! @resolver(class: "Danslo\\VelvetConfigurationGraphQl\\Model\\Resolver\\Section")
+    configurationScopes: [Scope!]! @resolver(class: "Danslo\\VelvetConfigurationGraphQl\\Model\\Resolver\\Scopes")
+}
+
+type Mutation {
+    restoreConfiguration(path: String!, scope_type: ScopeType, scope_id: Int): String @resolver(class: "Danslo\\VelvetConfigurationGraphQl\\Model\\Resolver\\RestoreConfiguration")
+    saveConfiguration(path: String!, value: String!, scope_type: ScopeType, scope_id: Int): Boolean! @resolver(class: "Danslo\\VelvetConfigurationGraphQl\\Model\\Resolver\\SaveConfiguration")
+}

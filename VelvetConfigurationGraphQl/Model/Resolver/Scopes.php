@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Danslo\VelvetGraphQl\Model\Resolver\Configuration;
+namespace Danslo\VelvetConfigurationGraphQl\Model\Resolver;
 
 use Danslo\VelvetGraphQl\Api\AdminAuthorizationInterface;
 use Magento\Config\Block\System\Config\Form;

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Danslo\VelvetGraphQl\Model\Resolver\Configuration;
+namespace Danslo\VelvetConfigurationGraphQl\Model\Resolver;
 
+use Danslo\VelvetConfigurationGraphQl\Model\Configuration;
 use Danslo\VelvetGraphQl\Api\AdminAuthorizationInterface;
-use Danslo\VelvetGraphQl\Model\Configuration;
 use Magento\Config\App\Config\Type\System;
 use Magento\Config\Block\System\Config\Form;
 use Magento\Config\Model\Config\Factory as ConfigFactory;
