@@ -1,6 +1,15 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Danslo\VelvetGraphQl\Model\GraphQl\GridItemUnionReader">
+        <arguments>
+            <argument name="gridItemTypes" xsi:type="array">
+                <item name="VelvetCmsBlock" xsi:type="string">VelvetCmsBlock</item>
+                <item name="VelvetCmsPage" xsi:type="string">VelvetCmsPage</item>
+            </argument>
+        </arguments>
+    </type>
+
     <virtualType name="Danslo\VelvetCmsGraphQl\Model\GraphQl\TableReader\CmsBlock" type="Danslo\VelvetGraphQl\Model\GraphQl\TableReader">
         <arguments>
             <argument name="schemaType" xsi:type="string">VelvetCmsBlock</argument>
