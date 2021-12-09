@@ -50,10 +50,10 @@ type Query {
 }
 
 type Mutation {
-    shipOrder(order_id: Int!): Int! @resolver(class: "Danslo\\VelvetOrderGraphQl\\Model\\Resolver\\Ship")
-    cancelOrder(order_id: Int!): Boolean! @resolver(class: "Danslo\\VelvetOrderGraphQl\\Model\\Resolver\\Cancel")
-    invoiceOrder(order_id: Int!): Int! @resolver(class: "Danslo\\VelvetOrderGraphQl\\Model\\Resolver\\Invoice")
-    refundOrder(order_id: Int!): Int! @resolver(class: "Danslo\\VelvetOrderGraphQl\\Model\\Resolver\\Refund")
-    holdOrder(order_id: Int!): Boolean! @resolver(class: "Danslo\\VelvetOrderGraphQl\\Model\\Resolver\\Hold")
-    unholdOrder(order_id: Int!): Boolean! @resolver(class: "Danslo\\VelvetOrderGraphQl\\Model\\Resolver\\Unhold")
+    shipOrder(order_id: Int!): Int! @resolver(class: "Danslo\\VelvetOrderGraphQl\\Model\\Resolver\\Order\\Ship")
+    cancelOrder(order_id: Int!): Boolean! @resolver(class: "Danslo\\VelvetOrderGraphQl\\Model\\Resolver\\Order\\Cancel")
+    invoiceOrder(order_id: Int!): Int! @resolver(class: "Danslo\\VelvetOrderGraphQl\\Model\\Resolver\\Order\\Invoice")
+    refundOrder(order_id: Int!): Int! @resolver(class: "Danslo\\VelvetOrderGraphQl\\Model\\Resolver\\Order\\Refund")
+    holdOrder(order_id: Int!): Boolean! @resolver(class: "Danslo\\VelvetOrderGraphQl\\Model\\Resolver\\Order\\Hold")
+    unholdOrder(order_id: Int!): Boolean! @resolver(class: "Danslo\\VelvetOrderGraphQl\\Model\\Resolver\\Order\\Unhold")
 }

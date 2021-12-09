@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Danslo\VelvetOrderGraphQl\Model\Resolver;
+namespace Danslo\VelvetOrderGraphQl\Model\Resolver\Order;
 
 use Danslo\VelvetGraphQl\Api\AdminAuthorizationInterface;
 use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\Exception\GraphQlInputException;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
-use Magento\Sales\Api\OrderManagementInterface;
+use Magento\Sales\Api\ShipOrderInterface;
 
-class Cancel implements ResolverInterface, AdminAuthorizationInterface
+class Ship implements ResolverInterface, AdminAuthorizationInterface
 {
-    private OrderManagementInterface $orderManagement;
+    private ShipOrderInterface $shipOrder;
 
-    public function __construct(OrderManagementInterface $orderManagement)
+    public function __construct(ShipOrderInterface $shipOrder)
     {
-        $this->orderManagement = $orderManagement;
+        $this->shipOrder = $shipOrder;
     }
 
     public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
@@ -27,11 +27,11 @@ class Cancel implements ResolverInterface, AdminAuthorizationInterface
             throw new GraphQlInputException(__('Required parameter "order_id" is missing'));
         }
 
-        return $this->orderManagement->cancel($orderId);
+        return $this->shipOrder->execute($orderId);
     }
 
     public function getResource(): string
     {
-        return 'Magento_Sales::cancel';
+        return 'Magento_Sales::ship';
     }
 }

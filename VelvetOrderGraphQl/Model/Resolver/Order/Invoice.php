@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Danslo\VelvetOrderGraphQl\Model\Resolver;
+namespace Danslo\VelvetOrderGraphQl\Model\Resolver\Order;
 
 use Danslo\VelvetGraphQl\Api\AdminAuthorizationInterface;
 use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\Exception\GraphQlInputException;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
-use Magento\Sales\Api\RefundOrderInterface;
+use Magento\Sales\Api\InvoiceOrderInterface;
 
-class Refund implements ResolverInterface, AdminAuthorizationInterface
+class Invoice implements ResolverInterface, AdminAuthorizationInterface
 {
-    private RefundOrderInterface $refundOrder;
+    private InvoiceOrderInterface $invoiceOrder;
 
-    public function __construct(RefundOrderInterface $refundOrder)
+    public function __construct(InvoiceOrderInterface $invoiceOrder)
     {
-        $this->refundOrder = $refundOrder;
+        $this->invoiceOrder = $invoiceOrder;
     }
 
     public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
@@ -27,11 +27,11 @@ class Refund implements ResolverInterface, AdminAuthorizationInterface
             throw new GraphQlInputException(__('Required parameter "order_id" is missing'));
         }
 
-        return $this->refundOrder->execute($orderId);
+        return $this->invoiceOrder->execute($orderId, true);
     }
 
     public function getResource(): string
     {
-        return 'Magento_Sales::creditmemo';
+        return 'Magento_Sales::invoice';
     }
 }

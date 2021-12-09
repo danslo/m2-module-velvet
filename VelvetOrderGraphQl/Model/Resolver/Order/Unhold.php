@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Danslo\VelvetOrderGraphQl\Model\Resolver;
+namespace Danslo\VelvetOrderGraphQl\Model\Resolver\Order;
 
 use Danslo\VelvetGraphQl\Api\AdminAuthorizationInterface;
 use Magento\Framework\GraphQl\Config\Element\Field;
