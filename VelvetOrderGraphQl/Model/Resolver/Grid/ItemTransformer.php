@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Danslo\VelvetOrderGraphQl\Model\Resolver\Grid;
 
-use Danslo\VelvetGraphQl\Api\EntityTransformerInterface;
+use Danslo\VelvetGraphQl\Api\ItemTransformerInterface;
 use Magento\Directory\Model\Currency;
 use Magento\Framework\Model\AbstractModel;
 use Magento\Store\Model\System\Store as SystemStore;
