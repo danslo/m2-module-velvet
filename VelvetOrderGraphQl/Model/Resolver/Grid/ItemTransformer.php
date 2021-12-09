@@ -6,7 +6,7 @@ namespace Danslo\VelvetOrderGraphQl\Model\Resolver\Grid;
 
 use Danslo\VelvetGraphQl\Api\ItemTransformerInterface;
 use Magento\Directory\Model\Currency;
-use Magento\Framework\Model\AbstractModel;
+use Magento\Framework\DataObject;
 use Magento\Store\Model\System\Store as SystemStore;
 
 class ItemTransformer implements ItemTransformerInterface
@@ -30,7 +30,7 @@ class ItemTransformer implements ItemTransformerInterface
         return $this->store->getStoreName($storeId);
     }
 
-    public function transform(AbstractModel $model, array $data): array
+    public function transform(DataObject $model, array $data): array
     {
         foreach ($this->currencyFormatFields as $field) {
             if (!isset($data[$field])) {
