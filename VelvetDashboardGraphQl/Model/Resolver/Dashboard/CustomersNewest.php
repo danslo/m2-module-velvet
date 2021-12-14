@@ -32,6 +32,7 @@ class CustomersNewest implements ResolverInterface
         $customers = [];
         foreach ($collection as $customer) {
             $customers[] = [
+                'customer_id' => $customer->getId(),
                 'name' => $customer->getName(),
                 'orders' => $customer->getOrdersCount() ?? 0,
                 'average' => $this->currency->format($customer->getOrdersAvgAmount(), [], false),

@@ -35,6 +35,7 @@ class LastOrders implements ResolverInterface
             $item->getCustomer() ?: $item->setCustomer($item->getBillingAddress()->getName());
 
             $lastOrders[] = [
+                'increment_id' => $item->getIncrementId(),
                 'customer_name' => $item->getCustomer(),
                 'num_items' => $item->getItemsCount(),
                 'total' => $this->currency->format($item->getRevenue(), [], false)
