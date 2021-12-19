@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
-    <!-- Grids -->
+    <!-- Page Grid -->
     <virtualType name="Danslo\VelvetCmsGraphQl\Model\Resolver\Page\Grid" type="Danslo\VelvetGraphQl\Model\Resolver\Grid">
         <arguments>
             <argument name="defaultOrderField" xsi:type="string">creation_time</argument>
@@ -9,6 +9,8 @@
             <argument name="aclResource" xsi:type="string">Magento_Cms::page</argument>
         </arguments>
     </virtualType>
+
+    <!-- Block Grid -->
     <virtualType name="Danslo\VelvetCmsGraphQl\Model\Resolver\Block\Grid" type="Danslo\VelvetGraphQl\Model\Resolver\Grid">
         <arguments>
             <argument name="defaultOrderField" xsi:type="string">creation_time</argument>
@@ -18,7 +20,7 @@
         </arguments>
     </virtualType>
 
-    <!-- Entity loading / persistence -->
+    <!-- Block CRUD -->
     <virtualType name="Danslo\VelvetCmsGraphQl\Model\Resolver\Entity\Loader\CmsBlock" type="Danslo\VelvetGraphQl\Model\Resolver\Entity\Loader">
         <arguments>
             <argument name="entityFactory" xsi:type="string">Magento\Cms\Model\BlockFactory</argument>
@@ -28,6 +30,14 @@
     </virtualType>
 
     <virtualType name="Danslo\VelvetCmsGraphQl\Model\Resolver\Entity\Persister\CmsBlock" type="Danslo\VelvetGraphQl\Model\Resolver\Entity\Persister">
+        <arguments>
+            <argument name="entityFactory" xsi:type="string">Magento\Cms\Model\BlockFactory</argument>
+            <argument name="resourceModel" xsi:type="object">Magento\Cms\Model\ResourceModel\Block</argument>
+            <argument name="aclResource" xsi:type="string">Magento_Cms::block</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="Danslo\VelvetCmsGraphQl\Model\Resolver\Entity\Deleter\CmsBlock" type="Danslo\VelvetGraphQl\Model\Resolver\Entity\Deleter">
         <arguments>
             <argument name="entityFactory" xsi:type="string">Magento\Cms\Model\BlockFactory</argument>
             <argument name="resourceModel" xsi:type="object">Magento\Cms\Model\ResourceModel\Block</argument>

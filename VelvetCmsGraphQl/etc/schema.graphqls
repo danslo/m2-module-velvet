@@ -11,4 +11,5 @@ type Query {
 
 type Mutation {
     saveBlock(input: VelvetCmsBlockInput!): VelvetCmsBlock! @resolver(class: "Danslo\\VelvetCmsGraphQl\\Model\\Resolver\\Entity\\Persister\\CmsBlock")
+    deleteBlock(block_id: Int!): Boolean @resolver(class: "Danslo\\VelvetCmsGraphQl\\Model\\Resolver\\Entity\\Deleter\\CmsBlock")
 }
