@@ -27,7 +27,7 @@
         <arguments>
             <argument name="defaultOrderField" xsi:type="string">creation_time</argument>
             <argument name="schemaType" xsi:type="string">VelvetCmsBlock</argument>
-            <argument name="factoryWrapper" xsi:type="object">Magento\Cms\Model\ResourceModel\Block\Grid\CollectionFactory</argument>
+            <argument name="factoryWrapper" xsi:type="object">Danslo\VelvetCmsGraphQl\Model\FactoryWrapper\Block\Grid</argument>
             <argument name="aclResource" xsi:type="string">Magento_Cms::block</argument>
         </arguments>
     </virtualType>
@@ -49,7 +49,7 @@
 
     <virtualType name="Danslo\VelvetCmsGraphQl\Model\Resolver\Entity\Persister\CmsBlock" type="Danslo\VelvetGraphQl\Model\Resolver\Entity\Persister">
         <arguments>
-            <argument name="factoryWrapper" xsi:type="string">Danslo\VelvetCmsGraphQl\Model\FactoryWrapper\Block</argument>
+            <argument name="factoryWrapper" xsi:type="object">Danslo\VelvetCmsGraphQl\Model\FactoryWrapper\Block</argument>
             <argument name="resourceModel" xsi:type="object">Magento\Cms\Model\ResourceModel\Block</argument>
             <argument name="aclResource" xsi:type="string">Magento_Cms::block</argument>
         </arguments>
@@ -57,7 +57,7 @@
 
     <virtualType name="Danslo\VelvetCmsGraphQl\Model\Resolver\Entity\Deleter\CmsBlock" type="Danslo\VelvetGraphQl\Model\Resolver\Entity\Deleter">
         <arguments>
-            <argument name="factoryWrapper" xsi:type="string">Danslo\VelvetCmsGraphQl\Model\FactoryWrapper\Block</argument>
+            <argument name="factoryWrapper" xsi:type="object">Danslo\VelvetCmsGraphQl\Model\FactoryWrapper\Block</argument>
             <argument name="resourceModel" xsi:type="object">Magento\Cms\Model\ResourceModel\Block</argument>
             <argument name="aclResource" xsi:type="string">Magento_Cms::block</argument>
         </arguments>
