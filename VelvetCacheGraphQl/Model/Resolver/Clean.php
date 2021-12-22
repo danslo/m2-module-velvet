@@ -22,7 +22,7 @@ class Clean implements ResolverInterface, AdminAuthorizationInterface
 
     public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
     {
-        $cacheId = $args['cache_id'];
+        $cacheId = $args['cache_id'] ?? null;
         if ($cacheId === null) {
             throw new GraphQlInputException(__('Cache ID must be specified.'));
         }
