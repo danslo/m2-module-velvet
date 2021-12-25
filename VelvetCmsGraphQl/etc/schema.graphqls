@@ -2,14 +2,20 @@ type VelvetCmsBlock {}
 input VelvetCmsBlockInput {}
 
 type VelvetCmsPage {}
+input VelvetCmsPageInput {}
 
 type Query {
-    cmsPageGrid(input: GridInput): GridOutput! @resolver(class: "Danslo\\VelvetCmsGraphQl\\Model\\Resolver\\Page\\Grid")
     cmsBlockGrid(input: GridInput): GridOutput! @resolver(class: "Danslo\\VelvetCmsGraphQl\\Model\\Resolver\\Block\\Grid")
     block(block_id: Int!): VelvetCmsBlock! @resolver(class: "Danslo\\VelvetCmsGraphQl\\Model\\Resolver\\Entity\\Loader\\CmsBlock")
+
+    cmsPageGrid(input: GridInput): GridOutput! @resolver(class: "Danslo\\VelvetCmsGraphQl\\Model\\Resolver\\Page\\Grid")
+    page(page_id: Int!): VelvetCmsPage! @resolver(class: "Danslo\\VelvetCmsGraphQl\\Model\\Resolver\\Entity\\Loader\\CmsPage")
 }
 
 type Mutation {
     saveBlock(input: VelvetCmsBlockInput!): VelvetCmsBlock! @resolver(class: "Danslo\\VelvetCmsGraphQl\\Model\\Resolver\\Entity\\Persister\\CmsBlock")
     deleteBlock(block_id: Int!): Boolean @resolver(class: "Danslo\\VelvetCmsGraphQl\\Model\\Resolver\\Entity\\Deleter\\CmsBlock")
+
+    savePage(input: VelvetCmsPageInput!): VelvetCmsPage! @resolver(class: "Danslo\\VelvetCmsGraphQl\\Model\\Resolver\\Entity\\Persister\\CmsPage")
+    deletePage(page_id: Int!): Boolean @resolver(class: "Danslo\\VelvetCmsGraphQl\\Model\\Resolver\\Entity\\Deleter\\CmsPage")
 }

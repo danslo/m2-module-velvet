@@ -25,6 +25,11 @@
         <arguments>
             <argument name="schemaType" xsi:type="string">VelvetCmsPage</argument>
             <argument name="tableName" xsi:type="string">cms_page</argument>
+            <argument name="nullableInputFields" xsi:type="array">
+                <item name="creation_time" xsi:type="string">creation_time</item>
+                <item name="update_time" xsi:type="string">update_time</item>
+                <item name="sort_order" xsi:type="string">sort_order</item>
+            </argument>
         </arguments>
     </virtualType>
 
