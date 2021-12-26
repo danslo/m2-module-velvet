@@ -8,14 +8,14 @@
         }
     ],
     "require": {
-        "danslo/magento2-module-velvet-graph-ql": "*",
-        "danslo/magento2-module-velvet-cache-graph-ql": "*",
-        "danslo/magento2-module-velvet-catalog-graph-ql": "*",
-        "danslo/magento2-module-velvet-cms-graph-ql": "*",
-        "danslo/magento2-module-velvet-configuration-graph-ql": "*",
-        "danslo/magento2-module-velvet-customer-graph-ql": "*",
-        "danslo/magento2-module-velvet-dashboard-graph-ql": "*",
-        "danslo/magento2-module-velvet-order-graph-ql": "*",
-        "danslo/magento2-module-velvet-indexer-graph-ql": "*"
+        "danslo/magento2-module-velvet-graph-ql": "*@dev",
+        "danslo/magento2-module-velvet-cache-graph-ql": "*@dev",
+        "danslo/magento2-module-velvet-catalog-graph-ql": "*@dev",
+        "danslo/magento2-module-velvet-cms-graph-ql": "*@dev",
+        "danslo/magento2-module-velvet-configuration-graph-ql": "*@dev",
+        "danslo/magento2-module-velvet-customer-graph-ql": "*@dev",
+        "danslo/magento2-module-velvet-dashboard-graph-ql": "*@dev",
+        "danslo/magento2-module-velvet-order-graph-ql": "*@dev",
+        "danslo/magento2-module-velvet-indexer-graph-ql": "*@dev"
     }
 }
