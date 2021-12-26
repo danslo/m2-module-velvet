@@ -4,6 +4,7 @@ input VelvetCmsBlockInput {}
 type VelvetCmsPage {
     layouts: [Option!]! @resolver(class: "Danslo\\VelvetCmsGraphQl\\Model\\Resolver\\Page\\Layouts")
     custom_layouts: [Option!]! @resolver(class: "Danslo\\VelvetCmsGraphQl\\Model\\Resolver\\Page\\CustomLayouts")
+    themes: [Option!]! @resolver(class: "Danslo\\VelvetCmsGraphQl\\Model\\Resolver\\Page\\Themes")
 }
 input VelvetCmsPageInput {}
 
