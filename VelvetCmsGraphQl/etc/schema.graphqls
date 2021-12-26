@@ -1,7 +1,10 @@
 type VelvetCmsBlock {}
 input VelvetCmsBlockInput {}
 
-type VelvetCmsPage {}
+type VelvetCmsPage {
+    layouts: [Option!]! @resolver(class: "Danslo\\VelvetCmsGraphQl\\Model\\Resolver\\Page\\Layouts")
+    custom_layouts: [Option!]! @resolver(class: "Danslo\\VelvetCmsGraphQl\\Model\\Resolver\\Page\\CustomLayouts")
+}
 input VelvetCmsPageInput {}
 
 type Query {
