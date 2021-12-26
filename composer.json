@@ -16,6 +16,7 @@
         "danslo/magento2-module-velvet-customer-graph-ql": "*",
         "danslo/magento2-module-velvet-dashboard-graph-ql": "*",
         "danslo/magento2-module-velvet-order-graph-ql": "*",
-        "danslo/magento2-module-velvet-indexer-graph-ql": "*"
+        "danslo/magento2-module-velvet-indexer-graph-ql": "*",
+        "graycore/magento2-cors": "*"
     }
 }
